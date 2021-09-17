@@ -2,6 +2,7 @@ import './App.css';
 import { Typography } from '@mui/material';
 import Container from '@mui/material/Container';
 import pic from "./pic.jpg";
+import NavBar from "./NavBar";
 
 function App() {
   return (
@@ -12,6 +13,9 @@ function App() {
                       Start-IT: Tech Starters
                   </b>
               </Typography>
+              <div>
+                  <NavBar/>
+              </div>
           </Container>
     </div>
   );
