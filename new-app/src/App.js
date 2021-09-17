@@ -10,7 +10,7 @@ function App() {
           <Container maxWidth="lg" style={{ backgroundColor: '#001624', minHeight: "100vh" }}>
               <Typography className="font-link" color='primary' variant='h1' style={{ paddingTop: ".4em" }}>
                   <b>
-                      Start-IT: Tech Starters
+                      Start-IT: Tech Starters Project
                   </b>
               </Typography>
               <div>
