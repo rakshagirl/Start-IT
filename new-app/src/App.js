@@ -1,24 +1,18 @@
-import logo from './logo.svg';
 import './App.css';
+import { Typography } from '@mui/material';
+import Container from '@mui/material/Container';
+import pic from "./pic.jpg";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-       <h2>Welcome to the awesome app! So great</h2>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="App" style={{ backgroundImage: `url(${pic})`}}>
+          <Container maxWidth="lg" style={{ backgroundColor: '#001624', minHeight: "100vh" }}>
+              <Typography className="font-link" color='primary' variant='h1' style={{ paddingTop: ".4em" }}>
+                  <b>
+                      Start-IT: Tech Starters
+                  </b>
+              </Typography>
+          </Container>
     </div>
   );
 }
