@@ -5,13 +5,17 @@ import Toolbar from '@mui/material/Toolbar';;
 
 function NavBar() {
 
-
-
     return (
         <div className="NavBar">
             <AppBar position="static">
                 <Toolbar>
-                    <Button color="inherit" href="/" >Home</Button>
+                    <Button color="inherit" size="large" href="/" >Home</Button>
+                    <Button color="inherit" size='large' href="/tasks" >Tasks</Button>
+                    <Button color="inherit" size='large' href="/communicate" >Communicate</Button>
+                    <Button color="inherit" size='large' href="/meeting" >Meeting Availability</Button>
+                    <div style={{ float: 'right' }}>
+                        <Button color="inherit" size="large" href="/" >Logout</Button>
+                    </div>
                 </Toolbar>
             </AppBar>
             <br />
