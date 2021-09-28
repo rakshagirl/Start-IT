@@ -1,14 +1,21 @@
 import './App.css';
 import { Typography } from '@mui/material';
-import Container from '@mui/material/Container';
-import pic from "./pic.jpg";
 import NavBar from "./NavBar";
 
 function MeetingAvailability() {
     return (
         <>
             <Typography color="primary">
-                Welcome to the meeting availability page!
+                <h1>
+                    <b>
+                        Meeting Availability
+                    </b>
+                </h1>
+            </Typography>
+            <Typography color="primary">
+                <h3>
+                    Use this resource to track schedules and find available times to meet!
+                </h3>
             </Typography>
         </>
     );

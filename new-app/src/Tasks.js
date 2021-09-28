@@ -9,16 +9,24 @@ function Tasks() {
         <>
             <Typography color="primary">
                 <h1>
-                    Incoming Tasks
+                    <b>
+                        Tasks
+                    </b>
                 </h1>
+            </Typography>
+            <Typography color="primary">
+                <h3>
+                    Check off incoming tasks as you complete them and add new ones to keep track of work!
+                </h3>
             </Typography>
             
             <Card variant='outlined' maxWidth="md" style={{ flex: 1, backgroundColor: '#bd84f5' }}>
                 <CardContent>
-                    <h3>
-                        No tasks here!
-                    </h3>
-                    
+                    <Typography>
+                        <h3>
+                            No tasks here!
+                        </h3>
+                    </Typography>
                 </CardContent>
             </Card>
             <br></br><br></br>

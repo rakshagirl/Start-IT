@@ -11,7 +11,9 @@ function Body() {
         <>
             <Typography color="primary">
                 <h1>
-                    Welcome to Start-IT.
+                    <b>
+                        Welcome to Start-IT.
+                    </b>
                 </h1>
             </Typography>
             <Typography color="primary">

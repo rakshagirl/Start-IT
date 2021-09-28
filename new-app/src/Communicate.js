@@ -11,22 +11,27 @@ function Communicate() {
             
             <Typography color="primary">
                 <h1>
-                    Communicate
+                    <b>
+                        Communicate
+                    </b>
                 </h1>
+            </Typography>
+            <Typography color="primary">
+                <h3>
+                    Use this area to discuss progress, issues, comments, and anything else you need to your teammates!
+                </h3>
             </Typography>
             <Grid
                 container
-                spacing={0}
-                direction="column"
-                justify="center"
-                style={{ minHeight: '100vh' }}>
-                <Grid item xs={8} md={8}>
+                spacing={2}           >
+                <Grid item xs={12} md={12}>
                     <Card variant='outlined' maxWidth="lg" style={{ flex: 1, backgroundColor: '#bd84f5' }}>
                         <CardContent>
-                            <h3>
-                                Chat Log Area
-                            </h3>
-
+                            <Typography>
+                                <h2>
+                                    Chat Log Area
+                                </h2>
+                            </Typography>
                         </CardContent>
                     </Card>
                 </Grid>
