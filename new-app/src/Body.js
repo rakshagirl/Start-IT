@@ -42,7 +42,7 @@ function Body() {
                                     Project Information
                                 </h1>
                             </Typography>
-                            <Button style={{ color: 'white' }} color="secondary" size="large" variant="contained">Edit Information</Button>
+                            <Button style={{ color: 'white' }} color="secondary" size="large" variant="contained" href="/edit_info">Edit Information</Button>
                         </CardContent>
                     </Card>
                 </Grid>

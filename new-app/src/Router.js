@@ -6,6 +6,7 @@ import Communicate from './Communicate.js';
 import MeetingAvailability from './MeetingAvailability.js';
 import Footer from './Footer.js';
 import './App.css';
+import EditProjectInfo from './EditProjectInfo.js';
 
 export default function Router() {
 
@@ -17,6 +18,7 @@ export default function Router() {
                     <Route exact path="/tasks" component={Tasks} />
                     <Route exact path="/communicate" component={Communicate} />
                     <Route exact path="/meeting" component={MeetingAvailability} />
+                    <Route exact path="/edit_info" component={EditProjectInfo} />
                 </Switch>
                 <Footer/>
             </BrowserRouter>
