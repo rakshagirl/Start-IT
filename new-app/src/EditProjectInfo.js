@@ -45,7 +45,7 @@ function EditProjectInfo() {
                     </Typography>
                     <ToggleButtonGroup
                         color="primary"
-                        exclusive
+                        //exclusive
                     >
                         <ToggleButton value="web-app">Web App/Website</ToggleButton>
                         <ToggleButton value="mobile-app">Mobile App</ToggleButton>
@@ -53,10 +53,12 @@ function EditProjectInfo() {
                         <ToggleButton value="3D-printed">3-D Printed Project</ToggleButton>
                         <ToggleButton value="robotics">Robotics</ToggleButton>
                     </ToggleButtonGroup>
+                    <br/><br/>
+                    <Button style={{ color: 'white' }} color="secondary" size="large" variant="contained" href="/" >Save Changes</Button>
                 </CardContent>
             </Card>
             <br></br><br></br>
-            <Button style={{ color: 'white' }} color="primary" size="large" variant="contained" href="/" >Save Changes</Button>
+            
         </>
     );
 }

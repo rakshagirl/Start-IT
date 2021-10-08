@@ -30,7 +30,7 @@ function Body() {
                                     Members
                                 </h1>
                             </Typography>
-                            <Button style={{ color: 'white' }} color="secondary" size="large" variant="contained">Add Member</Button>
+                            <Button style={{ color: 'white' }} color="secondary" size="large" href="/edit_members" variant="contained">Add Member</Button>
                         </CardContent>
                     </Card>
                 </Grid>
