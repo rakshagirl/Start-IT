@@ -30,7 +30,7 @@ function Tasks() {
                 </CardContent>
             </Card>
             <br></br><br></br>
-            <Button style={{ color: 'white' }} color="primary" size="large" variant="contained">Add Task</Button>
+            <Button style={{ color: 'white' }} color="primary" size="large" variant="contained" href='/add_task' >Add Task</Button>
         </>
     );
 }

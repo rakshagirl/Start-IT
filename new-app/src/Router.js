@@ -8,6 +8,7 @@ import Footer from './Footer.js';
 import './App.css';
 import EditProjectInfo from './EditProjectInfo.js';
 import EditMembers from './EditMembers.js';
+import AddTask from './AddTask.js';
 
 export default function Router() {
 
@@ -21,6 +22,7 @@ export default function Router() {
                     <Route exact path="/meeting" component={MeetingAvailability} />
                     <Route exact path="/edit_info" component={EditProjectInfo} />
                     <Route exact path="/edit_members" component={EditMembers} />
+                    <Route exact path="/add_task" component={AddTask} />
                 </Switch>
                 <Footer/>
             </BrowserRouter>

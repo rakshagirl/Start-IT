@@ -4,6 +4,8 @@ import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
 
 function Communicate() {
     return (
@@ -32,6 +34,19 @@ function Communicate() {
                                     Chat Log Area
                                 </h2>
                             </Typography>
+
+                            <Card variant='outlined' maxWidth="sm" style={{ flex: 1, backgroundColor: '#d4a8ff' }}>
+                                <CardContent>
+                                    <Typography>
+                                        Past Messages go here
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                            <br/>
+                            <TextField id="outlined-basic" label="" variant="outlined" />
+                            <br/><br/>
+                            <Button style={{ color: 'white' }} color="secondary" size="large" variant="contained">Send</Button>
+
                         </CardContent>
                     </Card>
                 </Grid>

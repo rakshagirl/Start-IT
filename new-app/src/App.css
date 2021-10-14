@@ -27,12 +27,15 @@
 .App-link {
   color: #61dafb;
 }
+.react-calendar__month-view__weekdays {
+    align-items: center;
+    justify-content: center;
+    color: darkblue;
+}
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.react-calendar__navigation button {
+    align-items: center;
+    justify-content: center;
+    font-size: 1em;
+    color: black;
 }
