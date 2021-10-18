@@ -1,6 +1,7 @@
 import './App.css';
 import { Typography } from '@mui/material';
-import NavBar from "./NavBar";
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 
 function MeetingAvailability() {
     return (
@@ -11,12 +12,16 @@ function MeetingAvailability() {
                         Meeting Availability
                     </b>
                 </h1>
-            </Typography>
-            <Typography color="primary">
                 <h3>
                     Use this resource to track schedules and find available times to meet!
                 </h3>
+                <Card variant='outlined' maxWidth="md" style={{ flex: 1, backgroundColor: '#bd84f5' }}>
+                    <CardContent>
+                        Hello
+                    </CardContent>
+                </Card>
             </Typography>
+
         </>
     );
 }

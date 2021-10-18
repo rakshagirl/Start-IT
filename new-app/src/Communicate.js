@@ -43,7 +43,7 @@ function Communicate() {
                                 </CardContent>
                             </Card>
                             <br/>
-                            <TextField id="outlined-basic" label="" variant="outlined" />
+                            <TextField id="outlined-basic" label="" variant="outlined" sx={{ minWidth: 350 }}/>
                             <br/><br/>
                             <Button style={{ color: 'white' }} color="secondary" size="large" variant="contained">Send</Button>
 

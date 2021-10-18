@@ -38,10 +38,11 @@ export default function EditMembers() {
                     <Box
                         component="form"
                         sx={{
-                            '& > :not(style)': { m: 1, width: '25ch' },
+                            '& > :not(style)': { m: 1, width: '40ch' },
                         }}
                         noValidate
                         autoComplete="off"
+                        alignItems="center"
                     >
                         <TextField id="outlined-basic" label="Full Name" variant="outlined" />
                     </Box>
@@ -52,9 +53,8 @@ export default function EditMembers() {
                             <b>Designers:</b> Creating Figma prototypes, wireframes, mockups, or other types of designs.<br />
                             <b>Marketers:</b> Building business plans, a lean canvas, pitch presentations, market research, and constructing company.<br />
                         </p>
-                    </Typography>
-                    <Box sx={{ maxWidth: 150 }} alignItems="center"
-                        justifyContent="center">
+                    
+                    <Box sx={{ maxWidth: 170 }}>
 
                         <FormControl fullWidth>
                             <InputLabel id="demo-simple-select-label">Role</InputLabel>
@@ -64,8 +64,6 @@ export default function EditMembers() {
                                 value={role}
                                 label="Role"
                                 onChange={handleChange}
-                                alignItems="center"
-                                justifyContent="center"
                             >
                                 <MenuItem value={10}>Engineer</MenuItem>
                                 <MenuItem value={20}>Designer</MenuItem>
@@ -73,10 +71,10 @@ export default function EditMembers() {
                             </Select>
                         </FormControl>
                     </Box>
-
+                    </Typography>
                     <Box sx={{ '& > :not(style)': { m: 1 } }}>
                         
-                        <Fab color="secondary" aria-label="add">
+                        <Fab color="secondary" aria-label="add" href="/">
                             Add
                         </Fab>
                     </Box>
