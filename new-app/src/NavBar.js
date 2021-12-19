@@ -3,7 +3,7 @@ import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import Toolbar from '@mui/material/Toolbar';;
 
-function NavBar() {
+function NavBar(props) {
 
     return (
         <div className="NavBar">
@@ -14,7 +14,7 @@ function NavBar() {
                     <Button color="inherit" size='large' href="/communicate" >Communicate</Button>
                     <Button color="inherit" size='large' href="/meeting" >Meeting Availability</Button>
                     <div style={{ float: 'right' }}>
-                        <Button color="inherit" size="large" href="/" >Logout</Button>
+                        <Button color="inherit" size="large" href="/" onClick={props.logout}>Logout</Button>
                     </div>
                 </Toolbar>
             </AppBar>

@@ -1,4 +1,5 @@
 import './App.css';
+import { useState } from 'react';
 import { Typography } from '@mui/material';
 import Container from '@mui/material/Container';
 import pic from "./pic.jpg";
@@ -6,8 +7,12 @@ import NavBar from "./NavBar";
 import Router from "./Router";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import symbol from "./symbol.png";
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+// v9 compat packages are API compatible with v8 code
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+import * as firebaseui from 'firebaseui'
+import 'firebaseui/dist/firebaseui.css'
 
 const firebaseConfig = {
     apiKey: "AIzaSyBGGfrsUkMIHZVq6_y1Q8t9lkH7DETDH08",
@@ -20,8 +25,20 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const app = firebase.initializeApp(firebaseConfig);
+var ui = new firebaseui.auth.AuthUI(firebase.auth());
+
+ui.start('#firebaseui-auth-container', {
+    signInFlow: 'popup',
+    signInOptions: [
+      // List of OAuth providers supported.
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.EmailAuthProvider.PROVIDER_ID
+    ],
+    signInSuccessUrl: "/"
+    // Other config options...
+  });
+
 
 const theme = createTheme({
     typography: {
@@ -32,21 +49,50 @@ const theme = createTheme({
     },
 });
 
-function App() {
+function App(props) {
+    const [user, setUser] = useState(false);
+    const [busy, setBusy] = useState(true);
+    
+    firebase.auth().onAuthStateChanged((firebaseUser) => {
+        
+        if (firebaseUser) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        // ...
+        setUser(true);
+        } else {
+        // User is signed out
+        // ...
+        setUser(false);
+        }
+        setBusy(false);
+    });
+    
+    const signOut = () => {
+        firebase.auth().signOut().then(() => {
+            props.history.push({
+                pathname: "/"
+            });
+            window.location.reload();
+        });
+    }
+    
     return (
       <ThemeProvider theme={theme}>
           <div className="App" style={{ backgroundImage: `url(${pic})`}}>
-              <Container maxWidth="xl" style={{ backgroundColor: '#001736', minHeight: "100vh" }}>
+              <Container maxWidth="xl" style={{ backgroundColor: '#001736', display: busy ? "none" : "", minHeight: "100vh" }}>
                     <Typography className="font-link" color='primary' variant='h1' style={{ paddingTop: ".4em" }}>
                     <img src={symbol} alt="Symbol" width="6.5%" height="6.5%" />
                       <b color='primary'>
                             Start-IT: Tech Starters 
                       </b>
                   </Typography>
-                  <div>
-                      <NavBar />
-                      <Router/>
-                  </div>
+                    {!user ? 
+                    <div><div id='firebaseui-auth-container' /></div> :
+                    <div>
+                        <NavBar logout={signOut}/>
+                        <Router/>
+                    </div>}
               </Container>
           </div>
        </ThemeProvider>

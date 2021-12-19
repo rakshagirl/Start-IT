@@ -1,7 +1,8 @@
 import './App.css';
-import { StyledFirebaseAuth } from 'react-firebaseui';
 import * as firebase from 'firebase';
+import firebaseui from 'firebaseui';
 
+var ui = new firebaseui.auth.AuthUI(firebase.auth());
 
 function SignIn() {
     const uiConfig = ({
