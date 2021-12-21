@@ -88,7 +88,8 @@ function App(props) {
                       </b>
                   </Typography>
                     {!user ? 
-                    <div><div id='firebaseui-auth-container' /></div> :
+                    <div>
+                        <div id='firebaseui-auth-container' /></div> :
                     <div>
                         <NavBar logout={signOut}/>
                         <Router/>

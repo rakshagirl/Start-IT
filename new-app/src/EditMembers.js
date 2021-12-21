@@ -11,13 +11,44 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
+import "firebase/database";
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+import 'firebaseui/dist/firebaseui.css'
 
-export default function EditMembers() {
+function EditMembers(props) {
     const [role, setRole] = React.useState('');
+    const [name, setName] = React.useState('');
 
-    const handleChange = (event) => {
-        setRole(event.target.value);
+    const handleNameChange = (event) => {
+        setName(event.target.value);
+        console.log(name);
     };
+
+    const handleRoleChange = (event) => {
+        setRole(event.target.value);
+        console.log(role);
+    };
+
+    async function onSubmit() {
+        var userId = firebase.auth().currentUser.uid;
+        await firebase.database().ref(userId + "/members").set({
+            name: name
+          });
+          props.history.push({
+            pathname: "/"
+        });
+        await firebase.database().ref(userId + "/members/" + name).set({
+            role: role
+          });
+          props.history.push({
+            pathname: "/"
+          });
+
+        //window.location.reload();
+    }
     return (
         <>
             <Typography color="primary">
@@ -44,7 +75,12 @@ export default function EditMembers() {
                         autoComplete="off"
                         alignItems="center"
                     >
-                        <TextField id="outlined-basic" label="Full Name" variant="outlined" />
+                        <TextField 
+                            id="outlined-basic" 
+                            label="Full Name" 
+                            variant="outlined" 
+                            value={name}
+                            onChange={handleNameChange}/>
                     </Box>
                     <Typography>
                         <h2>Roles & Responsibilities</h2>
@@ -63,18 +99,18 @@ export default function EditMembers() {
                                 id="demo-simple-select"
                                 value={role}
                                 label="Role"
-                                onChange={handleChange}
+                                onChange={handleRoleChange}
                             >
-                                <MenuItem value={10}>Engineer</MenuItem>
-                                <MenuItem value={20}>Designer</MenuItem>
-                                <MenuItem value={30}>Marketer</MenuItem>
+                                <MenuItem value={"Engineer"}>Engineer</MenuItem>
+                                <MenuItem value={"Designer"}>Designer</MenuItem>
+                                <MenuItem value={"Marketer"}>Marketer</MenuItem>
                             </Select>
                         </FormControl>
                     </Box>
                     </Typography>
                     <Box sx={{ '& > :not(style)': { m: 1 } }}>
                         
-                        <Fab color="secondary" aria-label="add" href="/">
+                        <Fab color="secondary" aria-label="add" onClick={onSubmit} href="/">
                             Add
                         </Fab>
                     </Box>
@@ -98,3 +134,4 @@ export default function EditMembers() {
     );
 }
 
+export default withRouter(EditMembers);

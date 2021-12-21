@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 
 function Body() {
+
     return (
         <>
             <Typography color="primary">
