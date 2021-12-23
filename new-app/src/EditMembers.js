@@ -13,10 +13,12 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import "firebase/database";
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
 import 'firebaseui/dist/firebaseui.css'
+import { getDatabase } from "firebase/database";
+import {useState, useEffect} from 'react';
 
 function EditMembers(props) {
     const [role, setRole] = React.useState('');
@@ -34,21 +36,25 @@ function EditMembers(props) {
 
     async function onSubmit() {
         var userId = firebase.auth().currentUser.uid;
-        await firebase.database().ref(userId + "/members").set({
-            name: name
-          });
-          props.history.push({
-            pathname: "/"
-        });
         await firebase.database().ref(userId + "/members/" + name).set({
             role: role
-          });
-          props.history.push({
-            pathname: "/"
           });
 
         //window.location.reload();
     }
+
+    const [members, setMembers] = useState(null);
+
+    useEffect(() => {
+        var userId = firebase.auth().currentUser.uid;
+        var starCountRef = firebase.database().ref(userId + "/members/");
+        starCountRef.on('value', (snapshot) => {
+            const data = snapshot.val();
+            setMembers(data);
+            console.log(data);
+        });
+    }, []);
+
     return (
         <>
             <Typography color="primary">
@@ -99,6 +105,7 @@ function EditMembers(props) {
                                 id="demo-simple-select"
                                 value={role}
                                 label="Role"
+                                alignItems="center"
                                 onChange={handleRoleChange}
                             >
                                 <MenuItem value={"Engineer"}>Engineer</MenuItem>
@@ -110,7 +117,14 @@ function EditMembers(props) {
                     </Typography>
                     <Box sx={{ '& > :not(style)': { m: 1 } }}>
                         
-                        <Fab color="secondary" aria-label="add" onClick={onSubmit} href="/">
+                        <Fab 
+                            color="secondary" 
+                            aria-label="add" 
+                            onClick={() => {
+                                if(name != null && role != null){
+                                    onSubmit();
+                                }
+                            }}>
                             Add
                         </Fab>
                     </Box>
@@ -125,6 +139,9 @@ function EditMembers(props) {
                             Edit Existing Members
                         </h2>
                     </Typography>
+                    {members != null ? Object.keys(members).map((member) => {
+                        return <p>{member} : {members[member]['role']}</p>
+                    }) : null}
                     <Button style={{ color: 'white' }} color="secondary" size="large" variant="contained" href="/" >Save Changes</Button>
                 </CardContent>
             </Card>

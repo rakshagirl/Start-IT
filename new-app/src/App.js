@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from 'react';
+import React, {useState, useEffect} from 'react';
 import { Typography } from '@mui/material';
 import Container from '@mui/material/Container';
 import pic from "./pic.jpg";
@@ -8,21 +8,22 @@ import Router from "./Router";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import symbol from "./symbol.png";
 // v9 compat packages are API compatible with v8 code
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
 import * as firebaseui from 'firebaseui'
 import 'firebaseui/dist/firebaseui.css'
 
 const firebaseConfig = {
     apiKey: "AIzaSyBGGfrsUkMIHZVq6_y1Q8t9lkH7DETDH08",
     authDomain: "start-it-techstarters.firebaseapp.com",
+    databaseURL: "https://start-it-techstarters-default-rtdb.firebaseio.com",
     projectId: "start-it-techstarters",
     storageBucket: "start-it-techstarters.appspot.com",
     messagingSenderId: "918971002225",
     appId: "1:918971002225:web:c75981f5c611d402465ad0",
     measurementId: "G-6YXCD3HTCP"
-};
+  };
 
 // Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);
