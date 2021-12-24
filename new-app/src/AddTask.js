@@ -9,13 +9,23 @@ import TextField from '@mui/material/TextField';
 import Calendar from 'react-calendar'
 import { useState } from 'react';
 import 'react-calendar/dist/Calendar.css';
+import firebase from "firebase/app";
+import "firebase/database";
+import { withRouter } from "react-router-dom";
 
-function AddTask() {
-    const [calDate, setCalDate] = useState(new Date())
+function AddTask(props) {
+    const [text, setText] = useState("");
 
-    function onChange(calDate) {
-        // change results based on calendar date click
-        setCalDate(calDate)
+    async function onSubmit() {
+        var userId = firebase.auth().currentUser.uid;
+        await firebase.database().ref(userId + "/tasks/" + text).set({
+            deadline: "Someday"
+          });
+          console.log(text);
+        //   props.history.push({
+        //     pathname: "/tasks"
+        // });
+        
     }
 
     return (
@@ -44,19 +54,24 @@ function AddTask() {
                         noValidate
                         autoComplete="off"
                     >
-                        <TextField id="outlined-basic" label="" variant="outlined" />
+                        <TextField 
+                            id="outlined-basic" 
+                            label="" 
+                            variant="outlined"
+                            value={text}
+                            onChange={(event) => setText(event.target.value)} />
                     </Box>
                     <Typography>
                         <h3>
                             Due Date:
                         </h3>
                         <div className="result-calendar">
-                            <Calendar onChange={onChange} value={calDate} />
+                            <Calendar />
                         </div>
                     </Typography>
                     
                     <br /><br />
-                    <Button style={{ color: 'white' }} color="secondary" size="large" variant="contained" href="/tasks" >Save Changes</Button>
+                    <Button style={{ color: 'white' }} color="secondary" size="large" variant="contained" onClick={onSubmit} >Save Changes</Button>
                 </CardContent>
             </Card>
             <br></br><br></br>
@@ -65,4 +80,4 @@ function AddTask() {
     );
 }
 
-export default AddTask;
+export default withRouter(AddTask);

@@ -17,30 +17,32 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebaseui/dist/firebaseui.css'
-import { getDatabase } from "firebase/database";
 import {useState, useEffect} from 'react';
 
 function EditMembers(props) {
-    const [role, setRole] = React.useState('');
+    const [role, setRole] = React.useState('Engineer');
     const [name, setName] = React.useState('');
+    const [error, setError] = React.useState(false);
 
     const handleNameChange = (event) => {
         setName(event.target.value);
-        console.log(name);
     };
 
     const handleRoleChange = (event) => {
         setRole(event.target.value);
-        console.log(role);
     };
 
     async function onSubmit() {
+        if(name.length == 0){
+            setError(true);
+            return;
+        } else {
+            setError(false);
+        }
         var userId = firebase.auth().currentUser.uid;
         await firebase.database().ref(userId + "/members/" + name).set({
             role: role
           });
-
-        //window.location.reload();
     }
 
     const [members, setMembers] = useState(null);
@@ -86,6 +88,8 @@ function EditMembers(props) {
                             label="Full Name" 
                             variant="outlined" 
                             value={name}
+                            error={error}
+                            helperText={error ? "This field cannot be blank" : ""}
                             onChange={handleNameChange}/>
                     </Box>
                     <Typography>
@@ -121,7 +125,7 @@ function EditMembers(props) {
                             color="secondary" 
                             aria-label="add" 
                             onClick={() => {
-                                if(name != null && role != null){
+                                if(name !== null && role !== null){
                                     onSubmit();
                                 }
                             }}>

@@ -1,5 +1,5 @@
 import './App.css';
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import { Typography } from '@mui/material';
 import Container from '@mui/material/Container';
 import pic from "./pic.jpg";
