@@ -13,7 +13,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import "firebase/database";
-import firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebaseui/dist/firebaseui.css'
@@ -33,7 +33,7 @@ function EditMembers(props) {
     };
 
     async function onSubmit() {
-        if(name.length == 0){
+        if(name.length === 0){
             setError(true);
             return;
         } else {

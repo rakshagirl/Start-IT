@@ -6,15 +6,18 @@ import CardContent from '@mui/material/CardContent';
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import Calendar from 'react-calendar'
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DateTimePicker from '@mui/lab/DateTimePicker';
 import { useState } from 'react';
 import 'react-calendar/dist/Calendar.css';
-import firebase from "firebase/app";
+import firebase from "firebase/compat/app";
 import "firebase/database";
 import { withRouter } from "react-router-dom";
 
 function AddTask(props) {
     const [text, setText] = useState("");
+    const [date, setDate] = React.useState(new Date('2014-08-18T21:11:54'));
 
     async function onSubmit() {
         var userId = firebase.auth().currentUser.uid;
@@ -22,11 +25,14 @@ function AddTask(props) {
             deadline: "Someday"
           });
           console.log(text);
-        //   props.history.push({
-        //     pathname: "/tasks"
-        // });
+        props.history.push({
+            pathname: "/tasks"
+        });
         
     }
+    const handleDateChange = (newValue) => {
+        setDate(newValue);
+      };
 
     return (
 
@@ -65,9 +71,15 @@ function AddTask(props) {
                         <h3>
                             Due Date:
                         </h3>
-                        <div className="result-calendar">
-                            <Calendar />
-                        </div>
+                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+      
+                            <DateTimePicker
+                            label="Date&Time picker"
+                            value={date}
+                            onChange={handleDateChange}
+                            renderInput={(params) => <TextField {...params} />}
+                            />
+                        </LocalizationProvider>
                     </Typography>
                     
                     <br /><br />

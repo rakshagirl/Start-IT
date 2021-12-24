@@ -3,12 +3,12 @@ import { Typography } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
-import firebase from "firebase/app";
+import firebase from "firebase/compat/app";
 
 function Task(props) {
 
     function deleteTask() {
-        if(window.confirm("Are you sure to want to delete this task? ")){
+        if(window.confirm("Are you sure you have finished completing this task? ")){
             var userId = firebase.auth().currentUser.uid;
             var ref = firebase.database().ref(userId + "/tasks/" + props.text);
             ref.remove();
@@ -22,9 +22,8 @@ function Task(props) {
           <CardContent>
               <Typography>
                   {props.text}
-                  <br/><br/>
               </Typography>
-              <Button color="inherit" variant="contained" onClick={deleteTask}>Delete</Button>
+              <Button color="inherit" variant="contained" onClick={deleteTask}>Done</Button>
               <br></br>
           </CardContent>
       </Card>
