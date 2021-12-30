@@ -45,6 +45,14 @@ function EditMembers(props) {
           });
     }
 
+    function deleteMember(name) {
+        if(window.confirm("Are you sure to want to delete this member? ")){
+            var userId = firebase.auth().currentUser.uid;
+            var ref = firebase.database().ref(userId + "/members/" + name);
+            ref.remove();
+        }
+    }
+
     const [members, setMembers] = useState(null);
 
     useEffect(() => {
@@ -144,9 +152,21 @@ function EditMembers(props) {
                         </h2>
                     </Typography>
                     {members != null ? Object.keys(members).map((member) => {
-                        return <p>{member} : {members[member]['role']}</p>
+                        return  <div>
+                                    {member} : {members[member]['role']} 
+                                    <Button style={{ color: 'white' }} 
+                                            color="secondary" 
+                                            size="medium" 
+                                            variant="contained"
+                                            onClick={() => deleteMember(member)}
+                                            >
+                                            Delete
+                                    </Button>
+                        
+                                </div>
                     }) : null}
-                    <Button style={{ color: 'white' }} color="secondary" size="large" variant="contained" href="/" >Save Changes</Button>
+                    <br/>
+                    <Button style={{ color: 'white' }} color="secondary" size="large" variant="contained" href="/" >Back to Home</Button>
                 </CardContent>
             </Card>
             <br></br><br></br>

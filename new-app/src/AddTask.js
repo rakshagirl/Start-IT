@@ -11,8 +11,9 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 import { useState } from 'react';
 import 'react-calendar/dist/Calendar.css';
-import firebase from "firebase/compat/app";
 import "firebase/database";
+import firebase from 'firebase/compat/app';
+import 'firebase/auth';
 import { withRouter } from "react-router-dom";
 
 function AddTask(props) {
@@ -22,16 +23,17 @@ function AddTask(props) {
     async function onSubmit() {
         var userId = firebase.auth().currentUser.uid;
         await firebase.database().ref(userId + "/tasks/" + text).set({
-            deadline: "Someday"
+            deadline: date.toUTCString()
           });
-          console.log(text);
-        props.history.push({
-            pathname: "/tasks"
-        });
+          
+          props.history.push({
+                pathname: "/tasks"
+          });
         
     }
     const handleDateChange = (newValue) => {
         setDate(newValue);
+        console.log(date);
       };
 
     return (
@@ -74,7 +76,7 @@ function AddTask(props) {
                         <LocalizationProvider dateAdapter={AdapterDateFns}>
       
                             <DateTimePicker
-                            label="Date&Time picker"
+                            label=""
                             value={date}
                             onChange={handleDateChange}
                             renderInput={(params) => <TextField {...params} />}

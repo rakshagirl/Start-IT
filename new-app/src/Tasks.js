@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import firebase from "firebase/compat/app";
 import React, {useState, useEffect} from 'react';
 import Task from "./Task";
+import { tileProps } from 'react-calendar/dist/umd/shared/propTypes';
 
 function Tasks() {
     const [tasks, setTasks] = useState(null);
@@ -37,8 +38,8 @@ function Tasks() {
             </Typography>
             
             {tasks != null ? Object.keys(tasks).map((task) => {
-              //var deadline = tasks[task]['deadline'];
-              return <Task text={task}/>
+              var deadline = tasks[task]['deadline'];
+              return <Task text={task} date={deadline}/>
           }) : null}
             <br></br>
             <Button style={{ color: 'white' }} color="primary" size="large" variant="contained" href='/add_task' >Add Task</Button>

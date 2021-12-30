@@ -9,8 +9,31 @@ import TextField from '@mui/material/TextField';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Grid from '@mui/material/Grid';
+import "firebase/database";
+import firebase from 'firebase/compat/app';
 
 function EditProjectInfo() {
+
+    const [title, setTitle] = React.useState("");
+    const [type, setType] = React.useState("");
+
+    const handleTitleChange = (event) => {
+        setTitle(event.target.value);
+    };
+
+    const handleTypeChange = (event) => {
+        setType(event.target.value);
+    };
+
+    async function onSubmit() {
+        var userId = firebase.auth().currentUser.uid;
+        await firebase.database().ref(userId + "/info/").set({
+            title: title,
+            type: type
+          });
+          console.log(title);
+          console.log(type);
+    }
     return (
         <>
             <Typography color="primary">
@@ -45,7 +68,12 @@ function EditProjectInfo() {
                             noValidate
                             autoComplete="off"
                         >
-                            <TextField id="outlined-basic" label="New Name" variant="outlined" />
+                            <TextField 
+                                id="outlined-basic" 
+                                label="New Name" 
+                                variant="outlined"
+                                value={title} 
+                                onChange={handleTitleChange}/>
                         </Box>
                         <Typography>
                             <h3>
@@ -55,7 +83,9 @@ function EditProjectInfo() {
                         </Typography>
                         <ToggleButtonGroup
                             color="primary"
-                            //exclusive
+                            value={type}
+                            exclusive
+                            onChange={handleTypeChange}
                         >
                             <ToggleButton value="web-app">Web App/Website</ToggleButton>
                             <ToggleButton value="mobile-app">Mobile App</ToggleButton>
@@ -64,7 +94,7 @@ function EditProjectInfo() {
                             <ToggleButton value="robotics">Robotics</ToggleButton>
                         </ToggleButtonGroup>
                         <br/><br/>
-                        <Button style={{ color: 'white' }} color="secondary" size="large" variant="contained" href="/" >Save Changes</Button>
+                        <Button style={{ color: 'white' }} color="secondary" size="large" variant="contained" onClick={onSubmit} href="/" >Save Changes</Button>
                     </CardContent>
                 </Card>
             <br></br><br></br>

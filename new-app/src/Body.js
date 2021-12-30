@@ -11,6 +11,7 @@ import "firebase/compat/database";
 
 function Body() {
     const [members, setMembers] = useState(null);
+    const [info, setInfo] = useState(null);
 
     useEffect(() => {
         var userId = firebase.auth().currentUser.uid;
@@ -20,7 +21,15 @@ function Body() {
             setMembers(data);
             console.log(data);
         });
+
+        starCountRef = firebase.database().ref(userId + "/info/");
+        starCountRef.on('value', (snapshot) => {
+            const data = snapshot.val();
+            setInfo(data);
+            console.log(data);
+        });
     }, []);
+
 
     return (
         <>
@@ -61,6 +70,8 @@ function Body() {
                                     Project Information
                                 </h1>
                             </Typography>
+                            {info != null ? info['title'] : ""}
+                            {info != null ? info['type'] : ""}
                             <Button style={{ color: 'white' }} color="secondary" size="large" variant="contained" href="/edit_info">Edit Information</Button>
                         </CardContent>
                     </Card>
