@@ -18,9 +18,16 @@ import { withRouter } from "react-router-dom";
 
 function AddTask(props) {
     const [text, setText] = useState("");
-    const [date, setDate] = React.useState(new Date('2014-08-18T21:11:54'));
+    const [date, setDate] = React.useState(new Date('2022-01-01T00:00:00'));
+    const [error, setError] = React.useState(false);
 
     async function onSubmit() {
+        if(text.length === 0){
+            setError(true);
+            return;
+        } else {
+            setError(false);
+        }
         var userId = firebase.auth().currentUser.uid;
         await firebase.database().ref(userId + "/tasks/" + text).set({
             deadline: date.toUTCString()
@@ -67,6 +74,8 @@ function AddTask(props) {
                             label="" 
                             variant="outlined"
                             value={text}
+                            error={error}
+                            helperText={error ? "This field cannot be blank" : ""}
                             onChange={(event) => setText(event.target.value)} />
                     </Box>
                     <Typography>
