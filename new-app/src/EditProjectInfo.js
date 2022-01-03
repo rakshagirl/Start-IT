@@ -12,7 +12,7 @@ import Grid from '@mui/material/Grid';
 import "firebase/database";
 import firebase from 'firebase/compat/app';
 
-function EditProjectInfo() {
+function EditProjectInfo(props) {
 
     const [title, setTitle] = React.useState("");
     const [type, setType] = React.useState("");
@@ -27,12 +27,15 @@ function EditProjectInfo() {
 
     async function onSubmit() {
         var userId = firebase.auth().currentUser.uid;
+        var ref = firebase.database().ref(userId + "/info/");
+        ref.remove();
         await firebase.database().ref(userId + "/info/").set({
             title: title,
             type: type
           });
-          console.log(title);
-          console.log(type);
+        props.history.push({
+            pathname: "/"
+      });
     }
     return (
         <>
@@ -94,7 +97,7 @@ function EditProjectInfo() {
                             <ToggleButton value="robotics">Robotics</ToggleButton>
                         </ToggleButtonGroup>
                         <br/><br/>
-                        <Button style={{ color: 'white' }} color="secondary" size="large" variant="contained" onClick={onSubmit} href="/" >Save Changes</Button>
+                        <Button style={{ color: 'white' }} color="secondary" size="large" variant="contained" onClick={onSubmit}  >Save Changes</Button>
                     </CardContent>
                 </Card>
             <br></br><br></br>

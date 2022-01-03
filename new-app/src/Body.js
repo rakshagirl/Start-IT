@@ -8,6 +8,8 @@ import Grid from '@mui/material/Grid';
 import {useState, useEffect} from 'react';
 import firebase from "firebase/compat/app";
 import "firebase/compat/database";
+import project from "./project.png";
+import memberspic from "./memberspic.png";
 
 function Body() {
     const [members, setMembers] = useState(null);
@@ -55,8 +57,9 @@ function Body() {
                                 </h1>
                             </Typography>
                             {members != null ? Object.keys(members).map((member) => {
-                                return <p>{member} : {members[member]['role']}</p>
+                                return <p><b><u>{member}</u></b>: {members[member]['role']}</p>
                             }) : null}
+                            <img src={memberspic} height={200} width={200}/> <br/> <br/>
                                
                             <Button style={{ color: 'white' }} color="secondary" size="large" href="/edit_members" variant="contained">Edit Members</Button>
                         </CardContent>
@@ -70,8 +73,9 @@ function Body() {
                                     Project Information
                                 </h1>
                             </Typography>
-                            {info != null ? info['title'] : ""}
-                            {info != null ? info['type'] : ""}
+                            <p><b><u>Project Name:</u>  </b>  {info != null ? info['title'] : ""}</p> 
+                            <p><b><u>Project Type:</u> </b>  {info != null ? info['type'] : ""}</p> 
+                            <img src={project} height={230} width={200} /> <br/> <br/>
                             <Button style={{ color: 'white' }} color="secondary" size="large" variant="contained" href="/edit_info">Edit Information</Button>
                         </CardContent>
                     </Card>

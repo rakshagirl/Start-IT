@@ -21,8 +21,8 @@ function Task(props) {
       <Card width='10vw' variant='outlined' style={{flex:1, backgroundColor:'#bd84f5'}}>
           <CardContent>
               <Typography>
-                  {props.text} <br></br> Deadline: 
-                  {props.date}
+                  <h3>{props.text}</h3> <b>Deadline: </b> 
+                  {props.date} <br/> <br/>
               </Typography>
               <Button color="inherit" variant="contained" onClick={deleteTask}>Done</Button>
               <br></br>

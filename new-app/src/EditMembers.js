@@ -153,17 +153,20 @@ function EditMembers(props) {
                     </Typography>
                     {members != null ? Object.keys(members).map((member) => {
                         return  <div>
-                                    {member} : {members[member]['role']} 
-                                    <Button style={{ color: 'white' }} 
-                                            color="secondary" 
+                            <Card variant='outlined' maxWidth="md" style={{ flex: 1, backgroundColor: '#d0a8f7' }}>
+                                <CardContent>
+                                    <p><b><u>{member}</u></b>: {members[member]['role']}</p>
+                                    <Button style={{ color: 'red' }} 
+                                            color="inherit" 
                                             size="medium" 
                                             variant="contained"
                                             onClick={() => deleteMember(member)}
                                             >
                                             Delete
                                     </Button>
-                        
-                                </div>
+                                </CardContent>
+                            </Card>
+                            </div>
                     }) : null}
                     <br/>
                     <Button style={{ color: 'white' }} color="secondary" size="large" variant="contained" href="/" >Back to Home</Button>
