@@ -71,6 +71,7 @@ function App(props) {
     
     const signOut = () => {
         firebase.auth().signOut().then(() => {
+            window.sessionStorage.clear();
             props.history.push({
                 pathname: "/"
             });

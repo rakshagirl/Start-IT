@@ -7,6 +7,13 @@ import firebase from "firebase/compat/app";
 
 function Task(props) {
 
+    //function convertDate(UTCSec) {
+        //var d = new Date(0);
+        //d.setUTCSeconds(UTCSec);
+        //d.setHours(d.getHours() - d.getTimezoneOffset() / 60);
+        //return (d).toLocaleString();
+    //}
+
     function deleteTask() {
         if(window.confirm("Are you sure you have finished completing this task? ")){
             var userId = firebase.auth().currentUser.uid;

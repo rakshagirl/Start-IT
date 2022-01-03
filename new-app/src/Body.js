@@ -75,7 +75,7 @@ function Body() {
                             </Typography>
                             <p><b><u>Project Name:</u>  </b>  {info != null ? info['title'] : ""}</p> 
                             <p><b><u>Project Type:</u> </b>  {info != null ? info['type'] : ""}</p> 
-                            <img src={project} height={230} width={200} /> <br/> <br/>
+                            <img src={project} height={200} width={170} /> <br/> <br/>
                             <Button style={{ color: 'white' }} color="secondary" size="large" variant="contained" href="/edit_info">Edit Information</Button>
                         </CardContent>
                     </Card>
