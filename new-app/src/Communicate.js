@@ -14,6 +14,9 @@ function Communicate() {
 
     const [members, setMembers] = useState(null);
     const [currentMember, setCurrentMember] = useState(null);
+    const [message, setMessage] = useState("");
+    const [error, setError] = useState(null);
+    const [messages, setMessages] = useState(null);
 
     useEffect(() => {
         var userId = firebase.auth().currentUser.uid;
@@ -21,7 +24,6 @@ function Communicate() {
         starCountRef.on('value', (snapshot) => {
             const data = snapshot.val();
             setMembers(data);
-            console.log(data);
         });
         if(currentMember == null){
             let data = window.sessionStorage.getItem("currentMember");
@@ -29,7 +31,42 @@ function Communicate() {
         }
     }, []);
 
-    console.log(currentMember);
+    useEffect(() => {
+        var userId = firebase.auth().currentUser.uid;
+        var starCountRef = firebase.database().ref(userId + "/chats/");
+        starCountRef.on('value', (snapshot) => {
+            const data = snapshot.val();
+            setMessages(data);
+        });
+    }, []);
+
+    function convertDate(UTCSec) {
+        var d = new Date(0);
+        d.setUTCSeconds(UTCSec);
+        d.setHours(d.getHours() - d.getTimezoneOffset() / 60);
+        console.log(UTCSec);
+        console.log((d).toLocaleString());
+        return (d).toLocaleString();
+    }
+
+    async function sendMessage() {
+        if (message.length === 0) {
+            setError(true);
+            console.log("ERROR");
+            return;
+        } else {
+            setError(false);
+        }
+        const now = new Date();
+        const utcMilli = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
+        const utcSec = Math.round(utcMilli / 1000);
+        var userId = firebase.auth().currentUser.uid;
+        await firebase.database().ref(userId + "/chats/" + utcSec).set({
+            message: message,
+            user: currentMember
+        });
+        window.location.reload();
+    }
 
     const selectMember = <Card variant='outlined' maxWidth="lg" style={{ flex: 1, backgroundColor: '#bd84f5' }}>
                             <CardContent>
@@ -73,6 +110,7 @@ function Communicate() {
                 container
                 spacing={2}           >
                 <Grid item xs={12} md={12}>
+
                     {currentMember == null ? selectMember : 
                         <Card variant='outlined' maxWidth="lg" style={{ flex: 1, backgroundColor: '#bd84f5' }}>
                             <CardContent>
@@ -82,19 +120,37 @@ function Communicate() {
                                     </h1>
                                     <h3>Current User is: {currentMember} </h3>
                                 </Typography>
+                                <TextField
+                                    id="outlined-basic"
+                                    label=""
+                                    variant="outlined"
+                                    sx={{ minWidth: 350 }}
+                                    value={message}
+                                    error={error}
+                                    helperText={error ? "This field cannot be blank" : ""}
+                                    onChange={(event) => setMessage(event.target.value)} />
 
+                                <br /><br />
+                                <Button style={{ color: 'white' }} color="secondary" size="large" variant="contained" onClick={sendMessage} >Send</Button>
+                                <br/><br/>
                                 <Card variant='outlined' maxWidth="sm" style={{ flex: 1, backgroundColor: '#d4a8ff' }}>
                                     <CardContent>
                                         <Typography>
-                                            Past Messages go here
+                                            <h2>Previous Chat</h2>
+                                            {messages != null ? Object.keys(messages).reverse().map((message) => {
+                                                return <div>
+                                                    <Card variant='outlined' maxWidth="md" style={{ flex: 1, backgroundColor: '#e0c2ff' }}>
+                                                        <CardContent>
+                                                            <b>{convertDate(message)} <br/> {messages[message]['user']}</b>: {messages[message]['message']}
+                                                        </CardContent>
+                                                    </Card>
+                                                </div>
+                                            }) : null}
                                         </Typography>
                                     </CardContent>
                                 </Card>
                                 <br/>
-                                <TextField id="outlined-basic" label="" variant="outlined" sx={{ minWidth: 350 }}/>
-                                <br/><br/>
-                                <Button style={{ color: 'white' }} color="secondary" size="large" variant="contained">Send</Button>
-
+                                
                             </CardContent>
                         </Card>}
                 </Grid>
