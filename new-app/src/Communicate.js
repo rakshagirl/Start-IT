@@ -17,6 +17,7 @@ function Communicate() {
     const [message, setMessage] = useState("");
     const [error, setError] = useState(null);
     const [messages, setMessages] = useState(null);
+    const [showAllMessages, setShowAllMessages] = useState(false);
 
     useEffect(() => {
         var userId = firebase.auth().currentUser.uid;
@@ -65,7 +66,7 @@ function Communicate() {
             message: message,
             user: currentMember
         });
-        window.location.reload();
+        setMessage("");
     }
 
     const selectMember = <Card variant='outlined' maxWidth="lg" style={{ flex: 1, backgroundColor: '#bd84f5' }}>
@@ -90,6 +91,13 @@ function Communicate() {
                             </CardContent>
                         </Card>;
 
+    if (messages != null) {
+        var currentMessages = Object.keys(messages).reverse();
+        if (!showAllMessages) {
+            currentMessages = currentMessages.slice(0, 5);
+        }
+    }
+    
 
     return (
         <>
@@ -137,11 +145,11 @@ function Communicate() {
                                     <CardContent>
                                         <Typography>
                                             <h2>Previous Chat</h2>
-                                            {messages != null ? Object.keys(messages).reverse().map((message) => {
+                                            {messages != null ? currentMessages.map((m) => {
                                                 return <div>
                                                     <Card variant='outlined' maxWidth="md" style={{ flex: 1, backgroundColor: '#e0c2ff' }}>
                                                         <CardContent>
-                                                            <b>{convertDate(message)} <br/> {messages[message]['user']}</b>: {messages[message]['message']}
+                                                            <b>{convertDate(m)} <br/> {messages[m]['user']}</b>: {messages[m]['message']}
                                                         </CardContent>
                                                     </Card>
                                                 </div>
@@ -150,7 +158,8 @@ function Communicate() {
                                     </CardContent>
                                 </Card>
                                 <br/>
-                                
+                                <Button style={{ color: 'white' }} color="secondary" size="large" variant="contained" onClick={() => setShowAllMessages(!showAllMessages)} >Show/Hide All Messages</Button>
+
                             </CardContent>
                         </Card>}
                 </Grid>
