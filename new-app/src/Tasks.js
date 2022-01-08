@@ -5,17 +5,29 @@ import firebase from "firebase/compat/app";
 import React, {useState, useEffect} from 'react';
 import Task from "./Task";
 import { tileProps } from 'react-calendar/dist/umd/shared/propTypes';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 
 function Tasks() {
-    const [tasks, setTasks] = useState(null);
+    const [activeTasks, setActiveTasks] = useState(null);
+    const [finishedTasks, setFinishedTasks] = useState(null);
+    const [showAllTasks, setShowAllTasks] = useState(false);
 
     useEffect(() => {
         var userId = firebase.auth().currentUser.uid;
-        var starCountRef = firebase.database().ref(userId + "/tasks/");
+        var starCountRef = firebase.database().ref(userId + "/tasks/" + "/active");
         starCountRef.on('value', (snapshot) => {
             const data = snapshot.val();
-            setTasks(data);
-            console.log(data);
+            setActiveTasks(data);
+        });
+    }, []);
+
+    useEffect(() => {
+        var userId = firebase.auth().currentUser.uid;
+        var starCountRef = firebase.database().ref(userId + "/tasks/" + "/finished");
+        starCountRef.on('value', (snapshot) => {
+            const data = snapshot.val();
+            setFinishedTasks(data);
         });
     }, []);
 
@@ -37,12 +49,27 @@ function Tasks() {
                 </h2>
             </Typography>
             
-            {tasks != null ? Object.keys(tasks).map((task) => {
-              var deadline = tasks[task]['deadline'];
-              return <Task text={task} date={deadline}/>
+            {activeTasks != null ? Object.keys(activeTasks).map((task) => {
+              let deadline = activeTasks[task]['deadline'];
+              let text = activeTasks[task]['text'];
+              return <Task text={text} date={deadline} id={task}/>
           }) : null}
             <br></br>
             <Button style={{ color: 'white' }} color="primary" size="large" variant="contained" href='/add_task' >Add Task</Button>
+            <br/> <br/>
+            <Button style={{ color: 'white' }} color="secondary" size="medium" variant="contained" onClick={() => setShowAllTasks(!showAllTasks)} >Show/Hide Finished Tasks</Button>
+            <br/><br/>
+            {showAllTasks ? Object.keys(finishedTasks).map((t) => {
+                                                return <div>
+                                                    <Typography>
+                                                        <Card variant='outlined' maxWidth="md" style={{ flex: 1, backgroundColor: '#babedb' }}>
+                                                            <CardContent>
+                                                                <b><h3>{finishedTasks[t]["text"]} <br/> </h3>Deadline: </b>{finishedTasks[t]['deadline']}
+                                                            </CardContent>
+                                                        </Card>
+                                                    </Typography>
+                                                </div>
+                                            }) : null}
         </>
     );
 }

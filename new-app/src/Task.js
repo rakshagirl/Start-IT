@@ -14,11 +14,15 @@ function Task(props) {
         //return (d).toLocaleString();
     //}
 
-    function deleteTask() {
+    async function deleteTask() {
         if(window.confirm("Are you sure you have finished completing this task? ")){
             var userId = firebase.auth().currentUser.uid;
-            var ref = firebase.database().ref(userId + "/tasks/" + props.text);
-            ref.remove();
+            var ref = firebase.database().ref(userId + "/tasks/" + "/active/" + props.id);
+            await firebase.database().ref(userId + "/tasks/" + "/finished/").push().set({
+                text: props.text,
+                deadline: props.date
+              });
+            await ref.remove();
         }
     }
 

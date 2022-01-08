@@ -29,7 +29,10 @@ function AddTask(props) {
             setError(false);
         }
         var userId = firebase.auth().currentUser.uid;
-        await firebase.database().ref(userId + "/tasks/" + text).set({
+        const ref = firebase.database().ref(userId + "/tasks/" + "/active/");
+        let newTaskRef = ref.push();
+        await newTaskRef.set({
+            text: text,
             deadline: date.toUTCString()
           });
           
