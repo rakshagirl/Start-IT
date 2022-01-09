@@ -4,7 +4,6 @@ import Button from '@mui/material/Button';
 import firebase from "firebase/compat/app";
 import React, {useState, useEffect} from 'react';
 import Task from "./Task";
-import { tileProps } from 'react-calendar/dist/umd/shared/propTypes';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 

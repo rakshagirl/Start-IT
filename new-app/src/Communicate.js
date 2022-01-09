@@ -90,7 +90,7 @@ function Communicate() {
                                     >
                                     {member}
                                     </Button>)
-                                }) : null}
+                                }) : "Go to the main page and add members to begin using the Communicate tool"}
                                 </Typography>
                             </CardContent>
                         </Card>;

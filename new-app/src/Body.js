@@ -61,7 +61,7 @@ function Body() {
                             }) : null}
                             <img src={memberspic} height={200} width={200}/> <br/> <br/>
                                
-                            <Button style={{ color: 'white' }} color="secondary" size="large" href="/edit_members" variant="contained">Edit Members</Button>
+                            <Button style={{ color: 'white' }} color="secondary" size="large" href="/edit_members" variant="contained">Add/Edit Members</Button>
                         </CardContent>
                     </Card>
                 </Grid>
