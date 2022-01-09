@@ -9,17 +9,32 @@ import TextField from '@mui/material/TextField';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import 'react-calendar/dist/Calendar.css';
 import "firebase/database";
 import firebase from 'firebase/compat/app';
 import 'firebase/auth';
 import { withRouter } from "react-router-dom";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 function AddTask(props) {
     const [text, setText] = useState("");
     const [date, setDate] = React.useState(new Date('2022-01-01T00:00:00'));
     const [error, setError] = React.useState(false);
+    const [members, setMembers] = useState(null);
+    const [assignedMember, setAssignedMember] = useState("everyone");
+
+    useEffect(() => {
+        var userId = firebase.auth().currentUser.uid;
+        var starCountRef = firebase.database().ref(userId + "/members/");
+        starCountRef.on('value', (snapshot) => {
+            const data = snapshot.val();
+            setMembers(data);
+        });
+    }, []);
 
     async function onSubmit() {
         if(text.length === 0){
@@ -33,7 +48,8 @@ function AddTask(props) {
         let newTaskRef = ref.push();
         await newTaskRef.set({
             text: text,
-            deadline: date.toUTCString()
+            deadline: date.toUTCString(),
+            assignedMember: assignedMember
           });
           
           props.history.push({
@@ -67,7 +83,7 @@ function AddTask(props) {
                     <Box
                         component="form"
                         sx={{
-                            '& > :not(style)': { m: 1, width: '25ch' },
+                            '& > :not(style)': { m: 1, width: '32ch' },
                         }}
                         noValidate
                         autoComplete="off"
@@ -76,6 +92,7 @@ function AddTask(props) {
                             id="outlined-basic" 
                             label="" 
                             variant="outlined"
+                            multiline
                             value={text}
                             error={error}
                             helperText={error ? "This field cannot be blank" : ""}
@@ -85,19 +102,57 @@ function AddTask(props) {
                         <h3>
                             Due Date:
                         </h3>
-                        <LocalizationProvider dateAdapter={AdapterDateFns}>
-      
-                            <DateTimePicker
-                            label=""
-                            value={date}
-                            onChange={handleDateChange}
-                            renderInput={(params) => <TextField {...params} />}
-                            />
-                        </LocalizationProvider>
+                        <Box
+                            component="form"
+                            sx={{
+                                '& > :not(style)': { m: 1, width: '25ch' },
+                            }}
+                            noValidate
+                            autoComplete="off"
+                        >   
+                            <LocalizationProvider dateAdapter={AdapterDateFns}>
+        
+                                <DateTimePicker
+                                label=""
+                                value={date}
+                                onChange={handleDateChange}
+                                renderInput={(params) => <TextField {...params} />}
+                                />
+                            </LocalizationProvider>
+                        </Box>
+                        <h3>Assigned Member: </h3>
+
+                        <Box
+                            component="form"
+                            sx={{
+                                '& > :not(style)': { m: 1, width: '25ch' },
+                            }}
+                            noValidate
+                            autoComplete="off"
+                        >
+                            <FormControl fullWidth>
+                                <InputLabel>Assign a Member</InputLabel>
+                                <Select
+                                    value={assignedMember}
+                                    label="Assign a Member"
+                                    onChange={(event) => setAssignedMember(event.target.value)}
+                                >
+                                    <MenuItem value={"everyone"}>Everyone</MenuItem>
+                                    {members != null ? Object.keys(members).map((member) => {
+                                        return (
+                                            <MenuItem value={member}>{member}</MenuItem>)
+                                    }) : null}
+                                </Select>
+                            </FormControl>
+                        </Box>
+                        
                     </Typography>
                     
                     <br /><br />
                     <Button style={{ color: 'white' }} color="secondary" size="large" variant="contained" onClick={onSubmit} >Save Changes</Button>
+                    <br/><br/>
+                    <Button style={{ backgroundColor: '#bfc5d6' }} color="inherit" size="large" variant="contained" href="/tasks" >Cancel</Button>
+
                 </CardContent>
             </Card>
             <br></br><br></br>

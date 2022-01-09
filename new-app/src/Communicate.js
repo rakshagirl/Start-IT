@@ -75,14 +75,18 @@ function Communicate() {
                                     <h2>Select Member Here:</h2>
                                     {members != null ? Object.keys(members).map((member) => {
                                     return (
-                                        <Button style={{ color: 'red' }} 
-                                        color="inherit" 
-                                        size="medium" 
-                                        variant="contained"
-                                        onClick={() => {
-                                            setCurrentMember(member);
-                                            window.sessionStorage.setItem("currentMember", member);
-                                        }}
+                                        <Button 
+                                            style={{
+                                                color: "red",
+                                                margin: "7px"
+                                            }}
+                                            color="inherit" 
+                                            size="medium" 
+                                            variant="contained"
+                                            onClick={() => {
+                                                setCurrentMember(member);
+                                                window.sessionStorage.setItem("currentMember", member);
+                                            }}
                                     >
                                     {member}
                                     </Button>)
@@ -94,7 +98,7 @@ function Communicate() {
     if (messages != null) {
         var currentMessages = Object.keys(messages).reverse();
         if (!showAllMessages) {
-            currentMessages = currentMessages.slice(0, 5);
+            currentMessages = currentMessages.slice(0, 7);
         }
     }
     
@@ -124,7 +128,7 @@ function Communicate() {
                             <CardContent>
                                 <Typography>
                                     <h1>
-                                        Chat Log Area
+                                        Chat Log 
                                     </h1>
                                     <h3>Current User is: {currentMember} </h3>
                                 </Typography>
@@ -133,6 +137,7 @@ function Communicate() {
                                     label=""
                                     variant="outlined"
                                     sx={{ minWidth: 350 }}
+                                    multiline
                                     value={message}
                                     error={error}
                                     helperText={error ? "This field cannot be blank" : ""}
@@ -158,7 +163,7 @@ function Communicate() {
                                     </CardContent>
                                 </Card>
                                 <br/>
-                                <Button style={{ color: 'white' }} color="secondary" size="large" variant="contained" onClick={() => setShowAllMessages(!showAllMessages)} >Show/Hide All Messages</Button>
+                                <Button style={{ color: 'white' }} color="primary" size="medium" variant="contained" onClick={() => setShowAllMessages(!showAllMessages)} >Show/Hide All Messages</Button>
 
                             </CardContent>
                         </Card>}

@@ -108,7 +108,13 @@ function EditMembers(props) {
                             <b>Marketers:</b> Building business plans, a lean canvas, pitch presentations, market research, and constructing company.<br />
                         </p>
                     
-                    <Box sx={{ maxWidth: 170 }}>
+                    <Box component="form"
+                            sx={{
+                                '& > :not(style)': { m: 1, width: '25ch' },
+                            }}
+                            noValidate
+                            autoComplete="off"
+                    >
 
                         <FormControl fullWidth>
                             <InputLabel id="demo-simple-select-label">Role</InputLabel>
@@ -150,24 +156,27 @@ function EditMembers(props) {
                         <h2>
                             Edit Existing Members
                         </h2>
-                    </Typography>
+                    
                     {members != null ? Object.keys(members).map((member) => {
                         return  <div>
                             <Card variant='outlined' maxWidth="md" style={{ flex: 1, backgroundColor: '#d0a8f7' }}>
                                 <CardContent>
-                                    <p><b><u>{member}</u></b>: {members[member]['role']}</p>
-                                    <Button style={{ color: 'red' }} 
-                                            color="inherit" 
-                                            size="medium" 
-                                            variant="contained"
-                                            onClick={() => deleteMember(member)}
-                                            >
+                                    <h3><u>{member}</u>: {members[member]['role']}</h3>
+                                    <Button 
+                                        style={{
+                                            backgroundColor: "#ff0f57"
+                                        }} 
+                                        size="medium" 
+                                        variant="contained"
+                                        onClick={() => deleteMember(member)}
+                                        >
                                             Delete
                                     </Button>
                                 </CardContent>
                             </Card>
                             </div>
                     }) : null}
+                    </Typography>
                     <br/>
                     <Button style={{ color: 'white' }} color="secondary" size="large" variant="contained" href="/" >Back to Home</Button>
                 </CardContent>

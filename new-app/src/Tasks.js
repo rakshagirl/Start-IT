@@ -52,19 +52,22 @@ function Tasks() {
             {activeTasks != null ? Object.keys(activeTasks).map((task) => {
               let deadline = activeTasks[task]['deadline'];
               let text = activeTasks[task]['text'];
-              return <Task text={text} date={deadline} id={task}/>
+              let assignedMember = activeTasks[task]['assignedMember'];
+              return <Task text={text} date={deadline} id={task} assignedMember={assignedMember}/>
           }) : null}
             <br></br>
-            <Button style={{ color: 'white' }} color="primary" size="large" variant="contained" href='/add_task' >Add Task</Button>
+            <Button style={{ color: 'white' }} color="secondary" size="large" variant="contained" href='/add_task' >Add Task</Button>
             <br/> <br/>
-            <Button style={{ color: 'white' }} color="secondary" size="medium" variant="contained" onClick={() => setShowAllTasks(!showAllTasks)} >Show/Hide Finished Tasks</Button>
+            <Button style={{ color: 'white' }} color="primary" size="medium" variant="contained" onClick={() => setShowAllTasks(!showAllTasks)} >Show/Hide Finished Tasks</Button>
             <br/><br/>
             {showAllTasks ? Object.keys(finishedTasks).map((t) => {
                                                 return <div>
                                                     <Typography>
                                                         <Card variant='outlined' maxWidth="md" style={{ flex: 1, backgroundColor: '#babedb' }}>
                                                             <CardContent>
-                                                                <b><h3>{finishedTasks[t]["text"]} <br/> </h3>Deadline: </b>{finishedTasks[t]['deadline']}
+                                                                <b><h3>{finishedTasks[t]["text"]} </h3> </b>
+                                                                <b>Assigned Member: </b>{finishedTasks[t]['assignedMember']}<br/>
+                                                                <b>Deadline: </b>{finishedTasks[t]['deadline']} <br/> 
                                                             </CardContent>
                                                         </Card>
                                                     </Typography>

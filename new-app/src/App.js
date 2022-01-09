@@ -69,14 +69,16 @@ function App(props) {
         setBusy(false);
     });
     
-    const signOut = () => {
-        firebase.auth().signOut().then(() => {
-            window.sessionStorage.clear();
-            props.history.push({
-                pathname: "/"
+    let signOut = () => {
+        if(window.confirm("Are you sure you wish to logout? ")){
+            firebase.auth().signOut().then(() => {
+                window.sessionStorage.clear();
+                props.history.push({
+                    pathname: "/"
+                });
+                window.location.reload();
             });
-            window.location.reload();
-        });
+        }
     }
     
     return (

@@ -14,15 +14,24 @@ function Task(props) {
         //return (d).toLocaleString();
     //}
 
-    async function deleteTask() {
+    async function doneTask() {
         if(window.confirm("Are you sure you have finished completing this task? ")){
             var userId = firebase.auth().currentUser.uid;
             var ref = firebase.database().ref(userId + "/tasks/" + "/active/" + props.id);
             await firebase.database().ref(userId + "/tasks/" + "/finished/").push().set({
                 text: props.text,
-                deadline: props.date
+                deadline: props.date,
+                assignedMember: props.assignedMember
               });
             await ref.remove();
+        }
+    }
+
+    async function deleteTask(){
+        if(window.confirm("Are you sure you wish to delete this task? ")){
+            var userId = firebase.auth().currentUser.uid;
+            var ref = firebase.database().ref(userId + "/tasks/" + "/active/" + props.id);
+            ref.remove();
         }
     }
 
@@ -32,10 +41,36 @@ function Task(props) {
       <Card width='10vw' variant='outlined' style={{flex:1, backgroundColor:'#bd84f5'}}>
           <CardContent>
               <Typography>
-                  <h3>{props.text}</h3> <b>Deadline: </b> 
+                  <h3>{props.text}</h3> 
+                  <b>Assigned Member: </b>
+                  {props.assignedMember}<br/>
+                  <b>Deadline: </b> 
                   {props.date} <br/> <br/>
+
               </Typography>
-              <Button color="inherit" variant="contained" onClick={deleteTask}>Done</Button>
+              <Button 
+                size="large" 
+                color="inherit" 
+                variant="contained" 
+                style={{ backgroundColor: '#bfc5d6' }}
+                onClick={doneTask}
+                >
+                    Done
+                </Button>
+              <br/><br/>
+              <Button 
+                style={{
+                    backgroundColor: "#ff0f57"
+                }}
+                variant="contained" 
+                size="medium"
+                onClick={deleteTask}
+                >
+                Delete
+              </Button>
+                
+              
+              
               <br></br>
           </CardContent>
       </Card>
