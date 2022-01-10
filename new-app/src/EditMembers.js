@@ -61,7 +61,6 @@ function EditMembers(props) {
         starCountRef.on('value', (snapshot) => {
             const data = snapshot.val();
             setMembers(data);
-            console.log(data);
         });
     }, []);
 
@@ -182,7 +181,6 @@ function EditMembers(props) {
                 </CardContent>
             </Card>
             <br></br><br></br>
-            
         </>
     );
 }

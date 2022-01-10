@@ -25,7 +25,7 @@ function AddTask(props) {
     const [date, setDate] = React.useState(new Date('2022-01-01T00:00:00'));
     const [error, setError] = React.useState(false);
     const [members, setMembers] = useState(null);
-    const [assignedMember, setAssignedMember] = useState("everyone");
+    const [assignedMember, setAssignedMember] = useState("Everyone");
 
     useEffect(() => {
         var userId = firebase.auth().currentUser.uid;
@@ -37,7 +37,7 @@ function AddTask(props) {
     }, []);
 
     async function onSubmit() {
-        if(text.length === 0){
+        if (text.length === 0) {
             setError(true);
             return;
         } else {
@@ -46,24 +46,25 @@ function AddTask(props) {
         var userId = firebase.auth().currentUser.uid;
         const ref = firebase.database().ref(userId + "/tasks/" + "/active/");
         let newTaskRef = ref.push();
+
+        const utcMilli = date.getTime() + (date.getTimezoneOffset() * 60 * 1000);
+        const utcSec = Math.round(utcMilli / 1000);
         await newTaskRef.set({
             text: text,
-            deadline: date.toUTCString(),
+            deadline: utcSec,
             assignedMember: assignedMember
-          });
-          
-          props.history.push({
-                pathname: "/tasks"
-          });
-        
+        });
+
+        props.history.push({
+            pathname: "/tasks"
+        });
+
     }
     const handleDateChange = (newValue) => {
         setDate(newValue);
-        console.log(date);
       };
 
     return (
-
         <>
             <Typography color="primary">
                 <h1>
@@ -137,7 +138,7 @@ function AddTask(props) {
                                     label="Assign a Member"
                                     onChange={(event) => setAssignedMember(event.target.value)}
                                 >
-                                    <MenuItem value={"everyone"}>Everyone</MenuItem>
+                                    <MenuItem value={"Everyone"}>Everyone</MenuItem>
                                     {members != null ? Object.keys(members).map((member) => {
                                         return (
                                             <MenuItem value={member}>{member}</MenuItem>)
@@ -145,18 +146,14 @@ function AddTask(props) {
                                 </Select>
                             </FormControl>
                         </Box>
-                        
                     </Typography>
-                    
                     <br /><br />
                     <Button style={{ color: 'white' }} color="secondary" size="large" variant="contained" onClick={onSubmit} >Save Changes</Button>
                     <br/><br/>
                     <Button style={{ backgroundColor: '#bfc5d6' }} color="inherit" size="large" variant="contained" href="/tasks" >Cancel</Button>
-
                 </CardContent>
             </Card>
             <br></br><br></br>
-
         </>
     );
 }

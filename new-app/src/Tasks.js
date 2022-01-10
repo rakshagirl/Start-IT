@@ -12,6 +12,13 @@ function Tasks() {
     const [finishedTasks, setFinishedTasks] = useState(null);
     const [showAllTasks, setShowAllTasks] = useState(false);
 
+    function convertDate(UTCSec) {
+        var d = new Date(0);
+        d.setUTCSeconds(UTCSec);
+        d.setHours(d.getHours() - d.getTimezoneOffset() / 60);
+        return (d).toLocaleString();
+    }
+
     useEffect(() => {
         var userId = firebase.auth().currentUser.uid;
         var starCountRef = firebase.database().ref(userId + "/tasks/" + "/active");
@@ -66,7 +73,7 @@ function Tasks() {
                                                             <CardContent>
                                                                 <b><h3>{finishedTasks[t]["text"]} </h3> </b>
                                                                 <b>Assigned Member: </b>{finishedTasks[t]['assignedMember']}<br/>
-                                                                <b>Deadline: </b>{finishedTasks[t]['deadline']} <br/> 
+                                                                <b>Deadline: </b>{convertDate(finishedTasks[t]['deadline'])} <br/> 
                                                             </CardContent>
                                                         </Card>
                                                     </Typography>

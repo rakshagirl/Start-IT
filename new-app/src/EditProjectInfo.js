@@ -90,11 +90,11 @@ function EditProjectInfo(props) {
                             exclusive
                             onChange={handleTypeChange}
                         >
-                            <ToggleButton value="web-app">Web App/Website</ToggleButton>
-                            <ToggleButton value="mobile-app">Mobile App</ToggleButton>
-                            <ToggleButton value="game">Game</ToggleButton>
-                            <ToggleButton value="3D-printed">3-D Printed Project</ToggleButton>
-                            <ToggleButton value="robotics">Robotics</ToggleButton>
+                            <ToggleButton value="Web App/Website">Web App/Website</ToggleButton>
+                            <ToggleButton value="Mobile App">Mobile App</ToggleButton>
+                            <ToggleButton value="Game">Game</ToggleButton>
+                            <ToggleButton value="3-D Printed Project">3-D Printed Project</ToggleButton>
+                            <ToggleButton value="Robotics">Robotics</ToggleButton>
                         </ToggleButtonGroup>
                         <br/><br/>
                         <Button style={{ color: 'white' }} color="secondary" size="large" variant="contained" onClick={onSubmit}  >Save Changes</Button>

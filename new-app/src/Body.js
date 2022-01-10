@@ -21,14 +21,12 @@ function Body() {
         starCountRef.on('value', (snapshot) => {
             const data = snapshot.val();
             setMembers(data);
-            console.log(data);
         });
 
         starCountRef = firebase.database().ref(userId + "/info/");
         starCountRef.on('value', (snapshot) => {
             const data = snapshot.val();
             setInfo(data);
-            console.log(data);
         });
     }, []);
 

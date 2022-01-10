@@ -7,12 +7,12 @@ import firebase from "firebase/compat/app";
 
 function Task(props) {
 
-    //function convertDate(UTCSec) {
-        //var d = new Date(0);
-        //d.setUTCSeconds(UTCSec);
-        //d.setHours(d.getHours() - d.getTimezoneOffset() / 60);
-        //return (d).toLocaleString();
-    //}
+    function convertDate(UTCSec) {
+        var d = new Date(0);
+        d.setUTCSeconds(UTCSec);
+        d.setHours(d.getHours() - d.getTimezoneOffset() / 60);
+        return (d).toLocaleString();
+    }
 
     async function doneTask() {
         if(window.confirm("Are you sure you have finished completing this task? ")){
@@ -45,7 +45,7 @@ function Task(props) {
                   <b>Assigned Member: </b>
                   {props.assignedMember}<br/>
                   <b>Deadline: </b> 
-                  {props.date} <br/> <br/>
+                  {convertDate(props.date)} <br/> <br/>
 
               </Typography>
               <Button 
@@ -68,15 +68,12 @@ function Task(props) {
                 >
                 Delete
               </Button>
-                
-              
               
               <br></br>
           </CardContent>
       </Card>
       <br></br>
       </>
-  
     );
   }
   

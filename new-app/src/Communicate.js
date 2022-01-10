@@ -45,8 +45,6 @@ function Communicate() {
         var d = new Date(0);
         d.setUTCSeconds(UTCSec);
         d.setHours(d.getHours() - d.getTimezoneOffset() / 60);
-        console.log(UTCSec);
-        console.log((d).toLocaleString());
         return (d).toLocaleString();
     }
 
@@ -101,11 +99,9 @@ function Communicate() {
             currentMessages = currentMessages.slice(0, 7);
         }
     }
-    
-
+  
     return (
         <>
-            
             <Typography color="primary">
                 <h1>
                     <b>
