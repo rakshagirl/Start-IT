@@ -6,14 +6,36 @@ import TextField from '@mui/material/TextField';
 import { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import firebase from "firebase/compat/app";
+import "firebase/compat/database";
 
 function ProductInspiration() {
     const [text, setText] = useState(null);
     const [names, setNames] = useState(null);
     const [words, setWords] = useState(null);
+    const [error, setError] = useState(null);
 
     async function onSubmit() {
-        console.log("yay");
+        if (text.length === 0 || names.length === 0 || words.length === 0) {
+            setError(true);
+            console.log("ERROR");
+            return;
+        } else {
+            setError(false);
+        }
+        const now = new Date();
+        const utcMilli = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
+        const utcSec = Math.round(utcMilli / 1000);
+        var userId = firebase.auth().currentUser.uid;
+        await firebase.database().ref("memberIdeas/" + userId).set({
+            names: names,
+            words: words,
+            text: text,
+            date: utcSec
+        });
+        /*setText("");
+        setNames("");
+        setWords("");*/
     }
 
     return (
