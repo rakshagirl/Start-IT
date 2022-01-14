@@ -55,8 +55,8 @@ function EditProjectInfo(props) {
                 style={{ minHeight: '0vh' }}
             >
 
-            <Grid item xs={8}>
-                <Card variant='outlined' sx={{ maxWidth: 900 }} style={{ flex: 1, backgroundColor: '#bd84f5' }}>
+            <Grid item xs={9}>
+                <Card variant='outlined' sx={{ maxWidth: 1000 }} style={{ flex: 1, backgroundColor: '#bd84f5' }}>
                     <CardContent>
                         <Typography>
                             <h3>
@@ -96,8 +96,28 @@ function EditProjectInfo(props) {
                             <ToggleButton value="3-D Printed Project">3-D Printed Project</ToggleButton>
                             <ToggleButton value="Robotics">Robotics</ToggleButton>
                         </ToggleButtonGroup>
-                        <br/><br/>
-                        <Button style={{ color: 'white' }} color="secondary" size="large" variant="contained" onClick={onSubmit}  >Save Changes</Button>
+                            <br /><br />
+                            <Button
+                                style={{
+                                    backgroundColor: '#bfc5d6',
+                                    margin: "14px"
+                                }}
+                                color="inherit"
+                                size="large"
+                                variant="contained"
+                                href="/"
+                            >
+                                Cancel
+                            </Button>
+                            <Button
+                                style={{ color: 'white' }}
+                                color="secondary"
+                                size="large"
+                                variant="contained"
+                                onClick={onSubmit}
+                            >
+                                Save Changes
+                            </Button>
                     </CardContent>
                 </Card>
             <br></br><br></br>

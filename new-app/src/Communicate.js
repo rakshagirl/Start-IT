@@ -132,15 +132,25 @@ function Communicate() {
                                     id="outlined-basic"
                                     label=""
                                     variant="outlined"
-                                    sx={{ minWidth: 350 }}
+                                    sx={{ minWidth: 400 }}
                                     multiline
                                     value={message}
                                     error={error}
-                                    helperText={error ? "This field cannot be blank" : ""}
+                                    helperText={error ? "Please type in a message" : ""}
                                     onChange={(event) => setMessage(event.target.value)} />
 
-                                <br /><br />
-                                <Button style={{ color: 'white' }} color="secondary" size="large" variant="contained" onClick={sendMessage} >Send</Button>
+                                <Button
+                                    style={{
+                                        color: 'white',
+                                        margin: "7px"
+                                    }}
+                                    color="secondary"
+                                    size="large"
+                                    variant="contained"
+                                    onClick={sendMessage}
+                                >
+                                    Send
+                                </Button>
                                 <br/><br/>
                                 <Card variant='outlined' maxWidth="sm" style={{ flex: 1, backgroundColor: '#d4a8ff' }}>
                                     <CardContent>

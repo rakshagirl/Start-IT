@@ -66,7 +66,7 @@ function Tasks() {
             <br/> <br/>
             <Button style={{ color: 'white' }} color="primary" size="medium" variant="contained" onClick={() => setShowAllTasks(!showAllTasks)} >Show/Hide Finished Tasks</Button>
             <br/><br/>
-            {showAllTasks ? Object.keys(finishedTasks).map((t) => {
+            {showAllTasks && finishedTasks != null ? Object.keys(finishedTasks).map((t) => {
                                                 return <div>
                                                     <Typography>
                                                         <Card variant='outlined' maxWidth="md" style={{ flex: 1, backgroundColor: '#babedb' }}>

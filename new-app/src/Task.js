@@ -48,26 +48,29 @@ function Task(props) {
                   {convertDate(props.date)} <br/> <br/>
 
               </Typography>
-              <Button 
-                size="large" 
-                color="inherit" 
-                variant="contained" 
-                style={{ backgroundColor: '#bfc5d6' }}
-                onClick={doneTask}
-                >
-                    Done
-                </Button>
-              <br/><br/>
+              
               <Button 
                 style={{
                     backgroundColor: "#ff0f57"
                 }}
                 variant="contained" 
-                size="medium"
+                size="large"
                 onClick={deleteTask}
                 >
                 Delete
               </Button>
+            <Button
+                size="large"
+                color="inherit"
+                variant="contained"
+                style={{
+                    backgroundColor: '#bfc5d6',
+                    margin: "7px"
+                }}
+                onClick={doneTask}
+            >
+                Done
+            </Button>
               
               <br></br>
           </CardContent>

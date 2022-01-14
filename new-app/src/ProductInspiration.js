@@ -10,10 +10,22 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/database";
 
 function ProductInspiration() {
-    const [text, setText] = useState(null);
-    const [names, setNames] = useState(null);
-    const [words, setWords] = useState(null);
+    const [text, setText] = useState("");
+    const [names, setNames] = useState("");
+    const [words, setWords] = useState("");
     const [error, setError] = useState(null);
+    const [submitted, setSubmitted] = useState(false);
+    const [submittedFirebase, setSubmittedFirebase] = useState(false);
+
+    useEffect(() => {
+        var userId = firebase.auth().currentUser.uid;
+        var starCountRef = firebase.database().ref(userId + "/productInspiration");
+        starCountRef.on('value', (snapshot) => {
+            const data = snapshot.val();
+            setSubmittedFirebase(data);
+        });
+        
+    }, []);
 
     async function onSubmit() {
         if (text.length === 0 || names.length === 0 || words.length === 0) {
@@ -23,19 +35,23 @@ function ProductInspiration() {
         } else {
             setError(false);
         }
+        setSubmitted(true);
+        setSubmittedFirebase(true);
+
         const now = new Date();
         const utcMilli = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
         const utcSec = Math.round(utcMilli / 1000);
         var userId = firebase.auth().currentUser.uid;
+        await firebase.database().ref(userId + "/productInspiration").set({
+            submittedIdea: submitted
+        });
         await firebase.database().ref("memberIdeas/" + userId).set({
             names: names,
             words: words,
             text: text,
             date: utcSec
         });
-        /*setText("");
-        setNames("");
-        setWords("");*/
+        
     }
 
     return (
@@ -84,6 +100,8 @@ function ProductInspiration() {
                                 placeholder="Team Member Names (First Names Only!)"
                                 variant="outlined"
                                 value={names}
+                                error={error}
+                                helperText={error ? "One of more fields are blank" : ""}
                                 onChange={(event) => setNames(event.target.value)}
                             />
                             <br/> 
@@ -92,6 +110,8 @@ function ProductInspiration() {
                                 placeholder="Your Random Three Words"
                                 variant="outlined"
                                 value={words}
+                                error={error}
+                                helperText={error ? "One of more fields are blank" : ""}
                                 onChange={(event) => setWords(event.target.value)}
                             />
                         </Box>
@@ -114,12 +134,27 @@ function ProductInspiration() {
                                 variant="outlined"
                                 fullWidth
                                 value={text}
+                                error={error}
+                                helperText={error ? "One of more fields are blank" : ""}
                                 onChange={(event) => setText(event.target.value)}
                             />
                         </Box>
-                        <h3>By clicking Submit, you give Tech Starters permission to share your business idea and names on our global list for business ideas below.
-                            <br/>You do not have to click Submit, but we would love to have other students read your work!</h3>
-                        <Button style={{ color: 'white' }} color="secondary" size="large" variant="contained" onClick={onSubmit} >Submit</Button>
+                        {submittedFirebase ? <h2> You have submitted your idea for the member leaderboard. </h2> :
+                            <div>
+                                <h4> By clicking Submit, you give Tech Starters permission to share your business idea and names on our global list for business ideas below.
+                                < br /> You do not have to click Submit, but we would love to have other students read your work!</h4 >
+                             <h3> IMPORTANT: Check for errors or typos before you submit! You can only submit your idea ONCE for the member leaderboard. </h3>
+                                <Button
+                                    style={{ color: 'white' }}
+                                    color="secondary"
+                                    size="large"
+                                    variant="contained"
+                                    onClick={onSubmit}
+                                >
+                                    Submit
+                                </Button>
+                            </div>
+                          }
                     </CardContent>
                 </Card>
             </Typography>

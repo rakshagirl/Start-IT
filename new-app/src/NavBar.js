@@ -14,6 +14,7 @@ function NavBar(props) {
                     <Button color="inherit" size='large' href="/communicate" >Communicate</Button>
                     <Button color="inherit" size='large' href="/inspiration" > Challenge</Button>
                     <Button color='inherit' size='large' href="/member_board" > Member Board </Button>
+                    <Button color='inherit' size='large' href="/resources" > Resources </Button>
                     <div style={{ float: 'right' }}>
                         <Button color="inherit" size="large" href="/" onClick={props.logout}>Logout</Button>
                     </div>
