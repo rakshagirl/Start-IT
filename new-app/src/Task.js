@@ -4,8 +4,10 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import firebase from "firebase/compat/app";
+import { useState, useEffect } from 'react';
 
 function Task(props) {
+    const [past, setPast] = useState(false);
 
     function convertDate(UTCSec) {
         var d = new Date(0);
@@ -35,6 +37,14 @@ function Task(props) {
         }
     }
 
+    useEffect(() => {
+        const start = Date.now();
+        const utcSecCheck = Math.round(start / 1000);
+        if (utcSecCheck > props.date) {
+            setPast(true);
+        }
+    }, []);
+
     return (
       <>
       
@@ -43,9 +53,20 @@ function Task(props) {
               <Typography>
                   <h3>{props.text}</h3> 
                   <b>Assigned Member: </b>
-                  {props.assignedMember}<br/>
-                  <b>Deadline: </b> 
-                  {convertDate(props.date)} <br/> <br/>
+                        {props.assignedMember}<br />
+
+             {past ? <div>
+                        <b>Deadline: </b>
+                            <b style={{ color: 'red' }}>
+                                {convertDate(props.date)}
+                            </b> <br /> <br />
+                    </div>
+                    : 
+                    <div>
+                        <b>Deadline: </b>
+                        {convertDate(props.date)} <br /> <br />
+                    </div>
+             }
 
               </Typography>
               

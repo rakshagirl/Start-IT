@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import firebase from "firebase/compat/app";
 import "firebase/compat/database";
+import nounlist from "./nounlist.txt";
 
 function ProductInspiration() {
     const [text, setText] = useState("");
@@ -16,6 +17,7 @@ function ProductInspiration() {
     const [error, setError] = useState(null);
     const [submitted, setSubmitted] = useState(false);
     const [submittedFirebase, setSubmittedFirebase] = useState(false);
+    const [ranWords, setRanWords] = useState(null);
 
     useEffect(() => {
         var userId = firebase.auth().currentUser.uid;
@@ -54,6 +56,26 @@ function ProductInspiration() {
         
     }
 
+    function generateWords() {
+        //not working
+        fetch('./nounlist.txt')
+            .then((r) => r.text())
+            .then(text => {
+                console.log(text);
+            })
+        var lines = text.split("\n");
+        var line1 = lines[Math.floor(Math.random() * lines.length)]
+        var line2 = lines[Math.floor(Math.random() * lines.length)]
+        var line3 = lines[Math.floor(Math.random() * lines.length)]
+
+        setRanWords(<div>
+            <h3>{line1}</h3>
+            <h3>{line2}</h3>
+            <h3>{line3}</h3>
+        </div>);
+
+    }
+
     return (
         <>
             <Typography color="primary">
@@ -74,7 +96,16 @@ function ProductInspiration() {
 
                         <Card variant='outlined' maxWidth="md" style={{ flex: 1, backgroundColor: '#d4a8ff' }}>
                             <CardContent>
-                                Put random word API here
+                                <Button
+                                    style={{ color: 'white' }}
+                                    color="primary"
+                                    size="large"
+                                    variant="contained"
+                                    onClick={generateWords}
+                                >
+                                    Generate Words!
+                                </Button>
+                                {ranWords}
                             </CardContent>
                         </Card>
                         <b><h3>Here are the items your idea needs to have:</h3>
