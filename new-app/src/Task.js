@@ -67,7 +67,6 @@ function Task(props) {
                         {convertDate(props.date)} <br /> <br />
                     </div>
              }
-
               </Typography>
               
               <Button 
@@ -92,7 +91,6 @@ function Task(props) {
             >
                 Done
             </Button>
-              
               <br></br>
           </CardContent>
       </Card>

@@ -26,7 +26,6 @@ function ProductInspiration() {
             const data = snapshot.val();
             setSubmittedFirebase(data);
         });
-        
     }, []);
 
     async function onSubmit() {
@@ -114,9 +113,7 @@ function ProductInspiration() {
                             - The purpose of your product & your target market <br />
                             - How you would physically make/develop it OR how you would monetize it <br/>
                         </b>
-
                         <p>You can write your ideas in the text field below. Happy brainstorming!</p>
-
                         <Box
                             component="form"
                             sx={{
@@ -147,7 +144,6 @@ function ProductInspiration() {
                             />
                         </Box>
                         <br />
-
                         <Box
                             component="form"
                             sx={{
@@ -156,7 +152,6 @@ function ProductInspiration() {
                             noValidate
                             autoComplete="off"
                         >
-
                             <TextField
                                 id="outlined-multiline-static"
                                 multiline
@@ -189,7 +184,6 @@ function ProductInspiration() {
                     </CardContent>
                 </Card>
             </Typography>
-
         </>
     );
 }

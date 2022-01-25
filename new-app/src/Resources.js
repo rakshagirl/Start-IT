@@ -64,8 +64,36 @@ function Resources() {
                             rel="noopener noreferrer">
                             COVID-19 Questionnairre App
                         </a></b>
-
-
+                    </CardContent>
+                </Card>
+                <br/>
+                <Card variant='outlined' maxWidth="md" style={{ flex: 1, backgroundColor: '#bd84f5' }}>
+                    <CardContent>
+                        <h2> Other Resources </h2>
+                        <b><a
+                            href={'https://nodejs.org/en/download/'}
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            Node.js
+                        </a></b><br />
+                        <b><a
+                            href={'https://visualstudio.microsoft.com/downloads/'}
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            Visual Studio
+                        </a></b><br />
+                        <b><a
+                            href={'https://www.figma.com/'}
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            Figma
+                        </a></b><br />
+                        <b><a
+                            href={'https://firebase.google.com/?authuser=1'}
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            Firebase
+                        </a></b><br />
                     </CardContent>
                 </Card>
             </Typography>

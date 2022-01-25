@@ -64,21 +64,29 @@ function Tasks() {
             <br></br>
             <Button style={{ color: 'white' }} color="secondary" size="large" variant="contained" href='/add_task' >Add Task</Button>
             <br/> <br/>
-            <Button style={{ color: 'white' }} color="primary" size="medium" variant="contained" onClick={() => setShowAllTasks(!showAllTasks)} >Show/Hide Finished Tasks</Button>
+            <Button
+                style={{ color: 'white' }}
+                color="primary"
+                size="medium"
+                variant="contained"
+                onClick={() => setShowAllTasks(!showAllTasks)}
+            >
+                Show/Hide Finished Tasks
+            </Button>
             <br/><br/>
             {showAllTasks && finishedTasks != null ? Object.keys(finishedTasks).map((t) => {
-                                                return <div>
-                                                    <Typography>
-                                                        <Card variant='outlined' maxWidth="md" style={{ flex: 1, backgroundColor: '#babedb' }}>
-                                                            <CardContent>
-                                                                <b><h3>{finishedTasks[t]["text"]} </h3> </b>
-                                                                <b>Assigned Member: </b>{finishedTasks[t]['assignedMember']}<br/>
-                                                                <b>Deadline: </b>{convertDate(finishedTasks[t]['deadline'])} <br/> 
-                                                            </CardContent>
-                                                        </Card>
-                                                    </Typography>
-                                                </div>
-                                            }) : null}
+                return <div>
+                    <Typography>
+                        <Card variant='outlined' maxWidth="md" style={{ flex: 1, backgroundColor: '#babedb' }}>
+                            <CardContent>
+                                <b><h3>{finishedTasks[t]["text"]} </h3> </b>
+                                <b>Assigned Member: </b>{finishedTasks[t]['assignedMember']}<br/>
+                                <b>Deadline: </b>{convertDate(finishedTasks[t]['deadline'])} <br/> 
+                            </CardContent>
+                        </Card>
+                    </Typography>
+                </div>
+            }) : null}
         </>
     );
 }

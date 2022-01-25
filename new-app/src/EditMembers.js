@@ -58,8 +58,6 @@ function EditMembers(props) {
         setName("");
     }
 
-    
-
     const [members, setMembers] = useState(null);
 
     useEffect(() => {

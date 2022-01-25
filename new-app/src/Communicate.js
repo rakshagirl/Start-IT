@@ -9,7 +9,6 @@ import {useState, useEffect} from 'react';
 import firebase from "firebase/compat/app";
 import "firebase/compat/database";
 
-
 function Communicate() {
 
     const [members, setMembers] = useState(null);
@@ -41,7 +40,6 @@ function Communicate() {
         });
     }, []);
 
-
     function convertDate(UTCSec) {
         var d = new Date(0);
         d.setUTCSeconds(UTCSec);
@@ -67,9 +65,6 @@ function Communicate() {
         });
         setMessage("");
     }
-
-    
-
 
     const selectMember = <Card variant='outlined' maxWidth="lg" style={{ flex: 1, backgroundColor: '#bd84f5' }}>
                             <CardContent>
@@ -129,7 +124,6 @@ function Communicate() {
                 container
                 spacing={2}           >
                 <Grid item xs={12} md={12}>
-
                     {currentMember == null ? selectMember : 
                         <Card variant='outlined' maxWidth="lg" style={{ flex: 1, backgroundColor: '#bd84f5' }}>
                             <CardContent>

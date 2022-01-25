@@ -160,9 +160,15 @@ function AddTask(props) {
                     >
                         Cancel
                     </Button>
-                    <Button style={{ color: 'white' }} color="secondary" size="large" variant="contained" onClick={onSubmit} >Save Changes</Button>
-                    
-                    
+                    <Button
+                        style={{ color: 'white' }}
+                        color="secondary"
+                        size="large"
+                        variant="contained"
+                        onClick={onSubmit}
+                    >
+                        Save Changes
+                    </Button>
                 </CardContent>
             </Card>
             <br></br><br></br>

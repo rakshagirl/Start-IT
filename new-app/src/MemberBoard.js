@@ -3,13 +3,11 @@ import { Typography } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { useState, useEffect } from 'react';
-import Button from '@mui/material/Button';
 import firebase from "firebase/compat/app";
 import "firebase/compat/database";
 
 function MemberBoard() {
     const [memberIdeas, setMemberIdeas] = useState(null);
-    //const [showAllIdeas, setShowAllIdeas] = useState(false);
 
     useEffect(() => {
         var starCountRef = firebase.database().ref("memberIdeas");
@@ -25,13 +23,6 @@ function MemberBoard() {
         d.setHours(d.getHours() - d.getTimezoneOffset() / 60);
         return (d).toLocaleString();
     }
-
-    /*if (memberIdeas != null) {
-        var currentIdeas = Object.keys(memberIdeas).reverse();
-        if (!showAllIdeas) {
-            currentIdeas = currentIdeas.slice(0, 5);
-        }
-    }*/
 
     return (
         <>
@@ -55,22 +46,12 @@ function MemberBoard() {
                                     {console.log(i["date"])}
                                     <b>Random Words: </b>{memberIdeas[i]['words']}<br /><br/>
                                     {memberIdeas[i]['text']}<br />
-                                    
                                 </CardContent>
                             </Card>
                         </Typography>
                     </div>
                 }) : null}
                 <br/>
-                {/*<Button
-                    style={{ color: 'white' }}
-                    color="secondary"
-                    size="large"
-                    variant="contained"
-                    onClick={() => setShowAllIdeas(!showAllIdeas)}
-                >
-                    Show All Ideas
-                </Button>*/}
             </Typography>
         </>
     );

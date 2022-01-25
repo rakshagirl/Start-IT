@@ -30,7 +30,6 @@ function Body() {
         });
     }, []);
 
-
     return (
         <>
             <Typography color="primary">
@@ -79,7 +78,6 @@ function Body() {
                     </Card>
                 </Grid>
             </Grid>
-            
         </>
     );
 }

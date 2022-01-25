@@ -7,7 +7,6 @@ import NavBar from "./NavBar";
 import Router from "./Router";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import symbol from "./symbol.png";
-// v9 compat packages are API compatible with v8 code
 import firebase from 'firebase/compat/app';
 import 'firebase/auth';
 import 'firebase/firestore';
