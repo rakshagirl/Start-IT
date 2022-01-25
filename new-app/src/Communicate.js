@@ -41,6 +41,7 @@ function Communicate() {
         });
     }, []);
 
+
     function convertDate(UTCSec) {
         var d = new Date(0);
         d.setUTCSeconds(UTCSec);
@@ -67,6 +68,9 @@ function Communicate() {
         setMessage("");
     }
 
+    
+
+
     const selectMember = <Card variant='outlined' maxWidth="lg" style={{ flex: 1, backgroundColor: '#bd84f5' }}>
                             <CardContent>
                                 <Typography>
@@ -82,8 +86,15 @@ function Communicate() {
                                             size="medium" 
                                             variant="contained"
                                             onClick={() => {
-                                                setCurrentMember(member);
-                                                window.sessionStorage.setItem("currentMember", member);
+                                                let password = members[member]['password'];
+                                                let pass = window.prompt("Please enter your password:", "");
+                                                console.log(password);
+                                                if (pass !== password) {
+                                                    return;
+                                                } else {
+                                                    setCurrentMember(member);
+                                                    window.sessionStorage.setItem("currentMember", member);
+                                                }
                                             }}
                                     >
                                     {member}

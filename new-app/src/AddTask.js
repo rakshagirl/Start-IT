@@ -148,9 +148,21 @@ function AddTask(props) {
                         </Box>
                     </Typography>
                     <br /><br />
+                    <Button
+                        style={{
+                            backgroundColor: '#bfc5d6',
+                            margin: "7px"
+                        }}
+                        color="inherit"
+                        size="large"
+                        variant="contained"
+                        href="/tasks"
+                    >
+                        Cancel
+                    </Button>
                     <Button style={{ color: 'white' }} color="secondary" size="large" variant="contained" onClick={onSubmit} >Save Changes</Button>
-                    <br/><br/>
-                    <Button style={{ backgroundColor: '#bfc5d6' }} color="inherit" size="large" variant="contained" href="/tasks" >Cancel</Button>
+                    
+                    
                 </CardContent>
             </Card>
             <br></br><br></br>

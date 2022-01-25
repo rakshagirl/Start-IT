@@ -23,6 +23,8 @@ function EditMembers(props) {
     const [role, setRole] = React.useState('Engineer');
     const [name, setName] = React.useState('');
     const [error, setError] = React.useState(false);
+    const [error1, setError1] = useState(false);
+    const [password, setPassword] = useState(null);
 
     const handleNameChange = (event) => {
         setName(event.target.value);
@@ -32,26 +34,31 @@ function EditMembers(props) {
         setRole(event.target.value);
     };
 
+    const handlePassChange = (event) => {
+        setPassword(event.target.value);
+    };
+
     async function onSubmit() {
-        if(name.length === 0){
+        if (name.length === 0) {
             setError(true);
+            return;
+        } else if (password.length === 0) {
+            setError1(true);
             return;
         } else {
             setError(false);
+            setError1(false);
         }
         var userId = firebase.auth().currentUser.uid;
         await firebase.database().ref(userId + "/members/" + name).set({
-            role: role
-          });
+            role: role,
+            password: password
+        });
+        setPassword("");
+        setName("");
     }
 
-    function deleteMember(name) {
-        if(window.confirm("Are you sure to want to delete this member? ")){
-            var userId = firebase.auth().currentUser.uid;
-            var ref = firebase.database().ref(userId + "/members/" + name);
-            ref.remove();
-        }
-    }
+    
 
     const [members, setMembers] = useState(null);
 
@@ -63,6 +70,17 @@ function EditMembers(props) {
             setMembers(data);
         });
     }, []);
+
+    function deleteMember(name) {
+        let pass = members[name]['password'];
+        if (window.prompt("Please enter in this member's password to confirm their deletion: ") === pass || window.prompt("Please enter in this member's password to confirm their deletion: ") === "OVERRIDE") {
+            var userId = firebase.auth().currentUser.uid;
+            var ref = firebase.database().ref(userId + "/members/" + name);
+            ref.remove();
+        } else {
+            return;
+        }
+    }
 
     return (
         <>
@@ -78,7 +96,7 @@ function EditMembers(props) {
                 <CardContent>
                     <Typography>
                         <h2>
-                            New Member:
+                            New Member
                         </h2>
                     </Typography>
                     <Box
@@ -100,7 +118,7 @@ function EditMembers(props) {
                             onChange={handleNameChange}/>
                     </Box>
                     <Typography>
-                        <h2>Roles & Responsibilities</h2>
+                        <h2>Role & Responsibility</h2>
                         <p>
                             <b>Engineers:</b> Developing the product through programming, CAD designs, or robotics software. <br/>
                             <b>Designers:</b> Creating Figma prototypes, wireframes, mockups, or other types of designs.<br />
@@ -130,7 +148,26 @@ function EditMembers(props) {
                                 <MenuItem value={"Marketer"}>Marketer</MenuItem>
                             </Select>
                         </FormControl>
-                    </Box>
+                        </Box>
+                        <h2>Set Password</h2>
+                        <p>Make sure to have <b>no one around you</b> when you type this in! This will serve as your password when communicating on the chat page.
+                        <br/><b>Keep this password in a safe space!</b></p>
+                        <Box component="form"
+                            sx={{
+                                '& > :not(style)': { m: 1, width: '30ch' },
+                            }}
+                            noValidate
+                            autoComplete="off"
+                        >
+                            <TextField
+                                id="outlined-basic"
+                                label="Your Password"
+                                variant="outlined"
+                                value={password}
+                                error={error1}
+                                helperText={error ? "This field cannot be blank" : ""}
+                                onChange={handlePassChange} />
+                        </Box>
                     </Typography>
                     <Box sx={{ '& > :not(style)': { m: 1 } }}>
                         
