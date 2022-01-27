@@ -113,7 +113,7 @@ function ProductInspiration() {
                             - The purpose of your product & your target market <br />
                             - How you would physically make/develop it OR how you would monetize it <br/>
                         </b>
-                        <p>You can write your ideas in the text field below. Happy brainstorming!</p>
+                        <p>You can write your ideas in the text field below. Keep it school appropriate, and happy brainstorming!</p>
                         <Box
                             component="form"
                             sx={{

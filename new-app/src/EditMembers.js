@@ -24,7 +24,8 @@ function EditMembers(props) {
     const [name, setName] = React.useState('');
     const [error, setError] = React.useState(false);
     const [error1, setError1] = useState(false);
-    const [password, setPassword] = useState(null);
+    const [password, setPassword] = useState("");
+    const [passwordCheck, setPasswordCheck] = useState("");
 
     const handleNameChange = (event) => {
         setName(event.target.value);
@@ -38,11 +39,20 @@ function EditMembers(props) {
         setPassword(event.target.value);
     };
 
+    const handlePassCheckChange = (event) => {
+        setPasswordCheck(event.target.value);
+    };
+
+    const errorPassword = <b style={{ color: 'red' }}>Your passwords are not the same.</b>;
+
     async function onSubmit() {
         if (name.length === 0) {
             setError(true);
             return;
-        } else if (password.length === 0) {
+        } else if (password.length === 0 || passwordCheck.length === 0) {
+            setError1(true);
+            return;
+        } else if (password != passwordCheck) {
             setError1(true);
             return;
         } else {
@@ -56,6 +66,7 @@ function EditMembers(props) {
         });
         setPassword("");
         setName("");
+        setPasswordCheck("");
     }
 
     const [members, setMembers] = useState(null);
@@ -71,7 +82,7 @@ function EditMembers(props) {
 
     function deleteMember(name) {
         let pass = members[name]['password'];
-        if (window.prompt("Please enter in this member's password to confirm their deletion: ") === pass || window.prompt("Please enter in this member's password to confirm their deletion: ") === "OVERRIDE") {
+        if (window.prompt("Please enter in this member's password to confirm their deletion: ") === pass) {
             var userId = firebase.auth().currentUser.uid;
             var ref = firebase.database().ref(userId + "/members/" + name);
             ref.remove();
@@ -148,8 +159,8 @@ function EditMembers(props) {
                         </FormControl>
                         </Box>
                         <h2>Set Password</h2>
-                        <p>Make sure to have <b>no one around you</b> when you type this in! This will serve as your password when communicating on the chat page.
-                        <br/><b>Keep this password in a safe space!</b></p>
+                        <p>Make sure to <b>write this down</b> when you type it in! This will serve as your password when communicating on the chat page.
+                        <br/><b>Make sure to use a password you've never used before!</b></p>
                         <Box component="form"
                             sx={{
                                 '& > :not(style)': { m: 1, width: '30ch' },
@@ -158,13 +169,23 @@ function EditMembers(props) {
                             autoComplete="off"
                         >
                             <TextField
+                                type="password"
                                 id="outlined-basic"
                                 label="Your Password"
                                 variant="outlined"
                                 value={password}
                                 error={error1}
-                                helperText={error ? "This field cannot be blank" : ""}
+                                helperText={error1 ? "The two passwords must be identical and more than one character." : ""}
                                 onChange={handlePassChange} />
+                            <TextField
+                                type="password"
+                                id="outlined-basic"
+                                label="Confirm Password"
+                                variant="outlined"
+                                value={passwordCheck}
+                                error={error1}
+                                helperText={error1 ? "The two passwords must be identical and more than one character." : ""}
+                                onChange={handlePassCheckChange} />
                         </Box>
                     </Typography>
                     <Box sx={{ '& > :not(style)': { m: 1 } }}>

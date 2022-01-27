@@ -12,6 +12,9 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import * as firebaseui from 'firebaseui'
 import 'firebaseui/dist/firebaseui.css'
+import Grid from '@mui/material/Grid';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 
 const firebaseConfig = {
     apiKey: "AIzaSyBGGfrsUkMIHZVq6_y1Q8t9lkH7DETDH08",
@@ -82,8 +85,15 @@ function App(props) {
     
     return (
       <ThemeProvider theme={theme}>
-          <div className="App" style={{ backgroundImage: `url(${pic})`}}>
-              <Container maxWidth="xl" style={{ backgroundColor: '#001736', display: busy ? "none" : "", minHeight: "100vh" }}>
+            <div className="App" style={{ backgroundImage: `url(${pic})` }}>
+                <Container
+                    maxWidth="xl"
+                    style={{
+                        backgroundColor: '#00173d',
+                        display: busy ? "none" : "",
+                        minHeight: "100vh"
+                    }}
+                >
                     <Typography className="font-link" color='primary' variant='h1' style={{ paddingTop: ".4em" }}>
                     <img src={symbol} alt="Symbol" width="6.5%" height="6.5%" />
                       <b color='primary'>
@@ -91,11 +101,26 @@ function App(props) {
                       </b>
                   </Typography>
                     {!user ? 
-                    <div>
-                        <div id='firebaseui-auth-container' /></div> :
+                        <div>
+                            <br /><br /><br/>
+                            <Grid
+                                item xs={5}
+                                spacing={0}
+                                alignItems="center"
+                                container
+                                justifyContent="center"
+                            >
+                                <Card variant='outlined' sx={{ maxWidth: 1000 }} style={{ flex: 1, justifyContent: "center", backgroundColor: '#bd84f5' }}>
+                                    <CardContent>
+                                        <div id='firebaseui-auth-container' />
+                                    </CardContent>
+                                </Card>
+                            </Grid>
+                        </div> :
                     <div>
                         <NavBar logout={signOut}/>
-                        <Router/>
+                        <Router />
+                            
                     </div>}
               </Container>
           </div>
