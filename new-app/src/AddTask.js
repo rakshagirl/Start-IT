@@ -22,7 +22,7 @@ import Select from '@mui/material/Select';
 
 function AddTask(props) {
     const [text, setText] = useState("");
-    const [date, setDate] = React.useState(new Date('2022-01-01T00:00:00'));
+    const [date, setDate] = React.useState(new Date());
     const [error, setError] = React.useState(false);
     const [members, setMembers] = useState(null);
     const [assignedMember, setAssignedMember] = useState("Everyone");

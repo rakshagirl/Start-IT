@@ -9,6 +9,7 @@ import Box from '@mui/material/Box';
 import firebase from "firebase/compat/app";
 import "firebase/compat/database";
 import nounlist from "./nounlist.txt";
+import idea from "./idea.png";
 
 function ProductInspiration() {
     const [text, setText] = useState("");
@@ -52,7 +53,6 @@ function ProductInspiration() {
             text: text,
             date: utcSec
         });
-        
     }
 
     function generateWords() {
@@ -72,7 +72,6 @@ function ProductInspiration() {
             <h3>{line2}</h3>
             <h3>{line3}</h3>
         </div>);
-
     }
 
     return (
@@ -90,6 +89,7 @@ function ProductInspiration() {
                 <Card variant='outlined' maxWidth="md" style={{ flex: 1, backgroundColor: '#bd84f5' }}>
                     <CardContent>
                         <h3>A Tech Starters exclusive day-one challenge...</h3>
+                        <img src={idea} height={100} width={100} />
                         <p>You have 20 minutes to create an entire product or business idea based on the random 3 words generated below.
                             Only one click allowed! You can work in groups of 3-4 to build your idea.</p>
 
@@ -167,7 +167,7 @@ function ProductInspiration() {
                         </Box>
                         {submittedFirebase ? <h2> You have submitted your idea for the member leaderboard. </h2> :
                             <div>
-                                <h4> By clicking Submit, you give Tech Starters permission to share your business idea and names on our global list for business ideas below.
+                                <h4> By clicking Submit, you give Tech Starters permission to share your business idea and names on our global list for business ideas.
                                 < br /> You do not have to click Submit, but we would love to have other students read your work!</h4 >
                              <h3> IMPORTANT: Check for errors or typos before you submit! You can only submit your idea ONCE for the member leaderboard. </h3>
                                 <Button

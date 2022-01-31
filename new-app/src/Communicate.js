@@ -8,6 +8,7 @@ import TextField from '@mui/material/TextField';
 import {useState, useEffect} from 'react';
 import firebase from "firebase/compat/app";
 import "firebase/compat/database";
+import chat from "./chat.png";
 
 function Communicate() {
 
@@ -131,6 +132,7 @@ function Communicate() {
                                     <h1>
                                         Chat Log 
                                     </h1>
+                                    <img src={chat} height={100} width={100} />
                                     <h3>Current User is: {currentMember} </h3>
                                 </Typography>
                                 <TextField

@@ -103,19 +103,7 @@ function App(props) {
                     {!user ? 
                         <div>
                             <br /><br /><br/>
-                            <Grid
-                                item xs={5}
-                                spacing={0}
-                                alignItems="center"
-                                container
-                                justifyContent="center"
-                            >
-                                <Card variant='outlined' sx={{ maxWidth: 1000 }} style={{ flex: 1, justifyContent: "center", backgroundColor: '#bd84f5' }}>
-                                    <CardContent>
-                                        <div id='firebaseui-auth-container' />
-                                    </CardContent>
-                                </Card>
-                            </Grid>
+                                <div id='firebaseui-auth-container' />
                         </div> :
                     <div>
                         <NavBar logout={signOut}/>
