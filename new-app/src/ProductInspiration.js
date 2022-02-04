@@ -65,9 +65,9 @@ function ProductInspiration() {
                 var line3 = lines[Math.floor(Math.random() * lines.length)]
 
                 setRanWords(<div>
-                    <h3>{line1}</h3>
-                    <h3>{line2}</h3>
-                    <h3>{line3}</h3>
+                    <h3 style={{color: "purple"}}>{line1}</h3>
+                    <h3 style={{color: "navy"}}>{line2}</h3>
+                    <h3 style={{color: "black"}}>{line3}</h3>
                 </div>);
             });
     }

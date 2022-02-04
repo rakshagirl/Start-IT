@@ -10,12 +10,14 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Grid from '@mui/material/Grid';
 import "firebase/database";
+import {useState, useEffect} from 'react';
 import firebase from 'firebase/compat/app';
 
 function EditProjectInfo(props) {
 
-    const [title, setTitle] = React.useState("");
-    const [type, setType] = React.useState("");
+    const [title, setTitle] = useState("");
+    const [type, setType] = useState("");
+    const [error, setError] = React.useState(false);
 
     const handleTitleChange = (event) => {
         setTitle(event.target.value);
@@ -25,7 +27,24 @@ function EditProjectInfo(props) {
         setType(event.target.value);
     };
 
+    useEffect(() => {
+        var userId = firebase.auth().currentUser.uid;
+        var starCountRef = firebase.database().ref(userId + "/info/");
+        starCountRef.on('value', (snapshot) => {
+            const data = snapshot.val();
+            setTitle(data != null ? data['title'] : "");
+            setType(data != null ? data['type'] : "");
+        });
+        
+    }, []);
+
     async function onSubmit() {
+        if (title.length === 0) {
+            setError(true);
+            return;
+        } else {
+            setError(false);
+        }
         var userId = firebase.auth().currentUser.uid;
         var ref = firebase.database().ref(userId + "/info/");
         ref.remove();
@@ -73,8 +92,9 @@ function EditProjectInfo(props) {
                         >
                             <TextField 
                                 id="outlined-basic" 
-                                label="New Name" 
                                 variant="outlined"
+                                error={error}
+                                helperText={error ? "This field cannot be blank" : ""}
                                 value={title} 
                                 onChange={handleTitleChange}/>
                         </Box>

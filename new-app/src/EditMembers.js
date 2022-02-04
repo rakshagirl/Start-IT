@@ -43,8 +43,6 @@ function EditMembers(props) {
         setPasswordCheck(event.target.value);
     };
 
-    const errorPassword = <b style={{ color: 'red' }}>Your passwords are not the same.</b>;
-
     async function onSubmit() {
         if (name.length === 0) {
             setError(true);
