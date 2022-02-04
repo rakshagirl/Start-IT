@@ -8,7 +8,6 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import firebase from "firebase/compat/app";
 import "firebase/compat/database";
-import nounlist from "./nounlist.txt";
 import idea from "./idea.png";
 
 function ProductInspiration() {
@@ -55,23 +54,22 @@ function ProductInspiration() {
         });
     }
 
-    function generateWords() {
+    async function generateWords() {
         //not working
-        fetch('./nounlist.txt')
+        await fetch('nounlist.txt')
             .then((r) => r.text())
-            .then(text => {
-                console.log(text);
-            })
-        var lines = text.split("\n");
-        var line1 = lines[Math.floor(Math.random() * lines.length)]
-        var line2 = lines[Math.floor(Math.random() * lines.length)]
-        var line3 = lines[Math.floor(Math.random() * lines.length)]
+            .then(words => {
+                var lines = words.split("\n");
+                var line1 = lines[Math.floor(Math.random() * lines.length)]
+                var line2 = lines[Math.floor(Math.random() * lines.length)]
+                var line3 = lines[Math.floor(Math.random() * lines.length)]
 
-        setRanWords(<div>
-            <h3>{line1}</h3>
-            <h3>{line2}</h3>
-            <h3>{line3}</h3>
-        </div>);
+                setRanWords(<div>
+                    <h3>{line1}</h3>
+                    <h3>{line2}</h3>
+                    <h3>{line3}</h3>
+                </div>);
+            });
     }
 
     return (
@@ -91,7 +89,7 @@ function ProductInspiration() {
                         <h3>A Tech Starters exclusive day-one challenge...</h3>
                         <img src={idea} height={100} width={100} />
                         <p>You have 20 minutes to create an entire product or business idea based on the random 3 words generated below.
-                            Only one click allowed! You can work in groups of 3-4 to build your idea.</p>
+                            Feel free to click until you get three words that you want to work with! You can work in groups of 3-4 to build your idea.</p>
 
                         <Card variant='outlined' maxWidth="md" style={{ flex: 1, backgroundColor: '#d4a8ff' }}>
                             <CardContent>
